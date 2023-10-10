@@ -1,0 +1,35 @@
+version: "3.9"
+name: portainer
+services:
+
+  # portainer:
+  #   image: portainer/portainer-ce
+  #   container_name: portainer
+  #   restart: unless-stopped
+  #   ports:
+  #     - 9000:9000
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #     - /usr/conf/portainer:/data
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TZ=US/Central
+
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:latest
+    restart: always
+    ports:
+      - 8000:8000
+      - 9443:9443
+    volumes:
+      - portainer-data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+
+volumes:
+  portainer-data:
+
+configs:
+  http_config:
+    file: ./http.conf
