@@ -73,7 +73,7 @@ services:
       - ${RADARR_PORT}:7878
     volumes:
       - radarr-config:/config
-      - ${MEDIA_DIRECTORY}/movies:/movies
+      - nas-share-movies/movies:/data/movies
     networks:
       - home-lab
 
@@ -85,8 +85,8 @@ services:
       - ${BAZARR_PORT}:6767
     volumes:
       - bazarr-config:/config
-      - ${MEDIA_DIRECTORY}/movies:/movies
-      - ${MEDIA_DIRECTORY}/shows:/shows
+      - nas-share-movies:/data/movies
+      - nas-share-shows:/data/shows
     networks:
       - home-lab
 
