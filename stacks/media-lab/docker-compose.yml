@@ -30,7 +30,7 @@ services:
     image: linuxserver/deluge
     restart: always
     env_file:
-      - ${STACK_ENV}
+      - ../stack.env
     environment:
       - UMASK=022 #optional
       - DELUGE_LOGLEVEL=error #optional
@@ -51,7 +51,7 @@ services:
     image: linuxserver/sonarr:latest
     restart: always
     env_file:
-      - ${STACK_ENV}
+      - ../stack.env
     environment:
       - UMASK=022
       - PUID=1000
@@ -70,7 +70,7 @@ services:
     image: lscr.io/linuxserver/radarr:latest
     restart: always
     env_file:
-      - ${STACK_ENV}
+      - ../stack.env
     environment:
       - UMASK=022 #optional
       - PUID=1000
@@ -89,7 +89,7 @@ services:
     image: lscr.io/linuxserver/bazarr:latest
     restart: always
     env_file:
-      - ${STACK_ENV}
+      - ../stack.env
     ports:
       - ${BAZARR_PORT}:6767
     volumes:
@@ -105,7 +105,7 @@ services:
     image: lscr.io/linuxserver/prowlarr:latest
     restart: always
     env_file:
-      - ${STACK_ENV}
+      - ../stack.env
     environment:
       - UMASK=022
       - PUID=1000
@@ -122,7 +122,7 @@ services:
     image: lscr.io/linuxserver/overseerr:latest
     restart: always
     env_file:
-      - ${STACK_ENV}
+      - ../stack.env
     environment:
       - UMASK=022
       - PUID=1000
