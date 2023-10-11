@@ -109,7 +109,7 @@ services:
 
   overseerr:
     container_name: overseerr
-    image: sctx/overseerr:latest
+    image: lscr.io/linuxserver/overseerr:latest
     restart: always
     environment:
       - UMASK=022
@@ -118,6 +118,6 @@ services:
     ports:
       - ${OVERSEERR_PORT}:5055
     volumes:
-      - overseerr-config:/app/config
+      - overseerr-config:/config
     networks:
       - home-lab
