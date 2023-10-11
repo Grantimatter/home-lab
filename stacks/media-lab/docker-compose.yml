@@ -11,7 +11,7 @@ volumes:
   nas-share-downloads: 
     driver_opts: &driver-default
       type: cifs
-      o: &net-user username=${NET_USER},password=${NET_USER_PASSWORD},rw,uid=1000,gid=1000
+      o: username=${NET_USER},password=${NET_USER_PASSWORD?err},rw,uid=1000,gid=1000
       device: ${NET_MACHINE}/downloads
   nas-share-movies:
     driver_opts:
