@@ -118,6 +118,6 @@ services:
     ports:
       - ${OVERSEERR_PORT}:5055
     volumes:
-      - overseerr-config:/config
+      - overseerr-config:/app/config
     networks:
       - home-lab
