@@ -1,5 +1,15 @@
 version: "3.9"
 name: media-lab
+volumes:
+  sonarr-config:
+  radarr-config:
+  deluge-config:
+  bazarr-config:
+  prowlarr-config:
+  overseerr-config:
+  portainer-data:
+networks:
+  home-lab:
 services:
 
   deluge:
@@ -14,23 +24,30 @@ services:
       - 58846:58846
       - 58946:58946/udp
     volumes:
-      - config:/config
-      - ${MEDIA_DIRECTORY}/downloads:/data/downloads
+      - deluge-config:/config
+      - ${DATA_DIRECTORY}/torrents:/data/downloads
       - ${MEDIA_DIRECTORY}/movies:/data/movies
       - ${MEDIA_DIRECTORY}/shows:/data/shows
       - ${MEDIA_DIRECTORY}/books:/data/books
       - ${MEDIA_DIRECTORY}/podcasts:/data/podcasts
+    networks:
+      - home-lab
 
   sonarr:
     container_name: sonarr
     image: linuxserver/sonarr:latest
     restart: always
+    environment:
+      - UMASK=022
+      - PUID=1000
+      - PGID=1000
     ports:
       - ${SONARR_PORT}:8989
     volumes:
-      - config:/config
+      - sonarr-config:/config
       - ${MEDIA_DIRECTORY}/shows:/shows
-      - ${MEDIA_DIRECTORY}/downloads:/data/downloads
+    networks:
+      - home-lab
 
   radarr:
     container_name: radarr
@@ -38,12 +55,15 @@ services:
     restart: always
     environment:
       - UMASK=022 #optional
+      - PUID=1000
+      - PGID=1000
     ports:
       - ${RADARR_PORT}:7878
     volumes:
-      - config:/config
+      - radarr-config:/config
       - ${MEDIA_DIRECTORY}/movies:/movies
-      - ${MEDIA_DIRECTORY}/downloads:/data/downloads
+    networks:
+      - home-lab
 
   bazarr:
     container_name: bazarr
@@ -52,18 +72,26 @@ services:
     ports:
       - ${BAZARR_PORT}:6767
     volumes:
-      - config:/config
+      - bazarr-config:/config
       - ${MEDIA_DIRECTORY}/movies:/movies
       - ${MEDIA_DIRECTORY}/shows:/shows
+    networks:
+      - home-lab
 
   prowlarr:
     container_name: prowlarr
     image: lscr.io/linuxserver/prowlarr:latest
     restart: always
+    environment:
+      - UMASK=022
+      - PUID=1000
+      - PGID=1000
     ports:
       - ${PROWLARR_PORT}:9696
     volumes:
-      - config:/config
+      - prowlarr-config:/config
+    networks:
+      - home-lab
 
   overseerr:
     container_name: overseerr
@@ -72,8 +100,6 @@ services:
     ports:
       - ${OVERSEERR_PORT}:5055
     volumes:
-      - config:/app/config
-
-volumes:
-  config:
-  portainer-data:
+      - overseerr-config:/app/config
+    networks:
+      - home-lab

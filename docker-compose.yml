@@ -1,7 +1,14 @@
 version: "3.9"
 name: portainer
-services:
 
+volumes:
+  nginx-data:
+  portainer-data:
+
+networks:
+  home-lab:
+
+services:
   portainer:
     container_name: portainer
     image: portainer/portainer-ce:latest
@@ -12,7 +19,19 @@ services:
     volumes:
       - portainer-data:/data
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - home-lab
 
-volumes:
-  portainer-data:
-
+  nginx:
+    container_name: nginx_proxy_manager
+    image: "jc21/nginx-proxy-manager:latest"
+    restart: always
+    ports: 
+      - 80:80
+      - ${NGINX_PROXY_MANAGER_PORT}:81
+      - 443:443
+    volumes:
+      - nginx-data:/data
+      - nginx-data:/etc/letsencrypt
+    networks:
+      - home-lab
