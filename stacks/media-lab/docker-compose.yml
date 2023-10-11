@@ -11,17 +11,15 @@ volumes:
   nas-share-downloads: 
     driver_opts: &driver-default
       type: cifs
-      o: username=${NET_USER},password=${NET_USER_PASSWORD:?err},rw,uid=1000,gid=1000
+      o: username=${NET_USER},password=${NET_USER_PASSWORD?err},rw,uid=1000,gid=1000
       device: ${NET_MACHINE}/downloads
   nas-share-movies:
     driver_opts:
-      type: cifs
-      o: username=${NET_USER},password=${NET_USER_PASSWORD:?err},rw,uid=1000,gid=1000
+      <<: *driver-default
       device: ${NET_MACHINE}/movies
   nas-share-shows:
     driver_opts:
-      type: cifs
-      o: username=${NET_USER},password=${NET_USER_PASSWORD:?err},rw,uid=1000,gid=1000
+      <<: *driver-default
       device: ${NET_MACHINE}/shows
 networks:
   home-lab:
