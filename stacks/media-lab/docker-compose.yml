@@ -129,7 +129,7 @@ services:
   plex:
     container_name: plex
     image: lscr.io/linuxserver/plex:latest
-    network-mode: host
+    network_mode: host
     environment:
       - PUID=1000
       - PGID=1000
