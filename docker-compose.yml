@@ -4,6 +4,8 @@ name: portainer
 volumes:
   nginx-data:
   portainer-data:
+  homarr-config:
+  homarr-data:
 
 networks:
   home-lab:
@@ -24,7 +26,7 @@ services:
 
   nginx:
     container_name: nginx_proxy_manager
-    image: "jc21/nginx-proxy-manager:latest"
+    image: jc21/nginx-proxy-manager:latest
     restart: always
     ports: 
       - 80:80
@@ -33,5 +35,17 @@ services:
     volumes:
       - nginx-data:/data
       - nginx-data:/etc/letsencrypt
+    networks:
+      - home-lab
+
+  homarr:
+    container_name: homarr
+    image: ghcr.io/ajnart/homarr:latest
+    restart: unless-stopped
+    ports:
+      - ${HOMARR_PORT}:7575
+    volumes:
+      - homarr-config:/app/data/configs
+      - homarr-data:/app/public/icons
     networks:
       - home-lab
