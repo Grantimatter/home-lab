@@ -21,6 +21,10 @@ volumes:
     driver_opts:
       <<: *driver-default
       device: ${NET_MACHINE}/shows
+  nas-share-library:
+    driver_opts:
+      <<: *driver-default
+      device: ${NET_MACHINE}/plex-library
 networks:
   home-lab:
 services:
@@ -121,3 +125,16 @@ services:
       - overseerr-config:/config
     networks:
       - home-lab
+
+  plex:
+    container_name: plex
+    image: lscr.io/linuxserver/plex:latest
+    network-mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+    volumes:
+      - nas-share-library:/config
+      - nas-share-movies:/data/movies
+      - nas-share-shows:/data/shows
