@@ -3,9 +3,13 @@ name: portainer
 
 volumes:
   nginx-data:
+    name: nginx-data
   portainer-data:
+    name: portainer-data
   homarr-config:
+    name: homarr-config
   homarr-data:
+    name: homarr-data
 
 networks:
   home-lab-network:
