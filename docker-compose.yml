@@ -8,7 +8,8 @@ volumes:
   homarr-data:
 
 networks:
-  home-lab:
+  home-lab-network:
+    name: home-lab-network
 
 services:
   portainer:
@@ -22,7 +23,7 @@ services:
       - portainer-data:/data
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - home-lab
+      - home-lab-network
 
   nginx:
     container_name: nginx_proxy_manager
@@ -36,7 +37,7 @@ services:
       - nginx-data:/data
       - nginx-data:/etc/letsencrypt
     networks:
-      - home-lab
+      - home-lab-network
 
   homarr:
     container_name: homarr
@@ -48,4 +49,4 @@ services:
       - homarr-config:/app/data/configs
       - homarr-data:/app/public/icons
     networks:
-      - home-lab
+      - home-lab-network

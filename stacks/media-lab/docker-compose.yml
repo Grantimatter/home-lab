@@ -26,7 +26,9 @@ volumes:
       <<: *driver-default
       device: ${NET_MACHINE}/plex-library
 networks:
-  home-lab:
+  home-lab-network:
+    external: true
+    name: home-lab-network
 services:
 
   deluge:
@@ -46,7 +48,7 @@ services:
       - nas-share-movies:/data/movies
       - nas-share-shows:/data/shows
     networks:
-      - home-lab
+      - home-lab-network
 
   sonarr:
     container_name: sonarr
@@ -63,7 +65,7 @@ services:
       - nas-share-downloads:/data/downloads
       - nas-share-shows:/data/shows
     networks:
-      - home-lab
+      - home-lab-network
 
   radarr:
     container_name: radarr
@@ -80,7 +82,7 @@ services:
       - nas-share-downloads:/data/downloads
       - nas-share-movies:/data/movies
     networks:
-      - home-lab
+      - home-lab-network
 
   bazarr:
     container_name: bazarr
@@ -94,7 +96,7 @@ services:
       - nas-share-movies:/data/movies
       - nas-share-shows:/data/shows
     networks:
-      - home-lab
+      - home-lab-network
 
   prowlarr:
     container_name: prowlarr
@@ -109,7 +111,7 @@ services:
     volumes:
       - prowlarr-config:/config
     networks:
-      - home-lab
+      - home-lab-network
 
   overseerr:
     container_name: overseerr
@@ -124,7 +126,7 @@ services:
     volumes:
       - overseerr-config:/config
     networks:
-      - home-lab
+      - home-lab-network
 
   plex:
     container_name: plex
