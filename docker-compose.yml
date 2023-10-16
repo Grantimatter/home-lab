@@ -1,20 +1,5 @@
 version: "3.9"
 name: portainer
-
-volumes:
-  nginx-data:
-    name: nginx-data
-  portainer-data:
-    name: portainer-data
-  homarr-config:
-    name: homarr-config
-  homarr-data:
-    name: homarr-data
-
-networks:
-  home-lab-network:
-    name: home-lab-network
-
 services:
   portainer:
     container_name: portainer
@@ -27,30 +12,32 @@ services:
       - portainer-data:/data
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - home-lab-network
-
-  nginx:
-    container_name: nginx_proxy_manager
-    image: jc21/nginx-proxy-manager:latest
-    restart: always
-    ports: 
-      - 80:80
-      - ${NGINX_PROXY_MANAGER_PORT}:81
-      - 443:443
-    volumes:
-      - nginx-data:/data
-      - nginx-data:/etc/letsencrypt
-    networks:
-      - home-lab-network
+      - lab-network
+      - media-network
 
   homarr:
     container_name: homarr
     image: ghcr.io/ajnart/homarr:latest
-    restart: unless-stopped
+    restart: always
     ports:
       - ${HOMARR_PORT}:7575
     volumes:
       - homarr-config:/app/data/configs
       - homarr-data:/app/public/icons
     networks:
-      - home-lab-network
+      - lab-network
+      - media-network
+
+volumes:
+  portainer-data:
+    name: portainer-data
+  homarr-config:
+    name: homarr-config
+  homarr-data:
+    name: homarr-data
+
+networks:
+  lab-network:
+    name: $LAB_NETWORK_NAME
+  media-network:
+    name: $MEDIA_NETWORK_NAME

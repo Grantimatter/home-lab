@@ -1,49 +1,11 @@
 version: "3.9"
 name: media-lab
-volumes:
-  sonarr-config:
-    name: sonarr-config
-  radarr-config:
-    name: radarr-config
-  deluge-config: 
-    name: deluge-config
-  bazarr-config:
-    name: bazarr-config
-  prowlarr-config:
-    name: prowlarr-config
-  overseerr-config:
-    name: overseerr-config
-  nas-share-downloads:
-    name: nas-share-downloads
-    driver_opts: &driver-default
-      type: cifs
-      o: username=${NET_USER},password=${NET_USER_PASSWORD?err},rw,uid=1000,gid=1000
-      device: ${NET_MACHINE}/downloads
-  nas-share-movies:
-    name: nas-share-movies
-    driver_opts:
-      <<: *driver-default
-      device: ${NET_MACHINE}/movies
-  nas-share-shows:
-    name: nas-share-shows
-    driver_opts:
-      <<: *driver-default
-      device: ${NET_MACHINE}/shows
-  nas-share-library:
-    name: nas-share-library
-    driver_opts:
-      <<: *driver-default
-      device: ${NET_MACHINE}/plex-library
-networks:
-  home-lab-network:
-    external: true
-    name: home-lab-network
 services:
 
   deluge:
     container_name: deluge
     image: linuxserver/deluge
-    restart: unless-stopped
+    restart: always
     environment:
       - UMASK=022 #optional
       - DELUGE_LOGLEVEL=error #optional
@@ -56,13 +18,11 @@ services:
       - nas-share-downloads:/data/downloads
       - nas-share-movies:/data/movies
       - nas-share-shows:/data/shows
-    networks:
-      - home-lab-network
 
   sonarr:
     container_name: sonarr
     image: linuxserver/sonarr:latest
-    restart: unless-stopped
+    restart: always
     environment:
       - UMASK=022
       - PUID=1000
@@ -73,13 +33,11 @@ services:
       - sonarr-config:/config
       - nas-share-downloads:/data/downloads
       - nas-share-shows:/data/shows
-    networks:
-      - home-lab-network
 
   radarr:
     container_name: radarr
     image: lscr.io/linuxserver/radarr:latest
-    restart: unless-stopped
+    restart: always
     environment:
       - UMASK=022 #optional
       - PUID=1000
@@ -90,13 +48,11 @@ services:
       - radarr-config:/config
       - nas-share-downloads:/data/downloads
       - nas-share-movies:/data/movies
-    networks:
-      - home-lab-network
 
   bazarr:
     container_name: bazarr
     image: lscr.io/linuxserver/bazarr:latest
-    restart: unless-stopped
+    restart: always
     ports:
       - ${BAZARR_PORT}:6767
     volumes:
@@ -104,13 +60,11 @@ services:
       - nas-share-downloads:/data/downloads
       - nas-share-movies:/data/movies
       - nas-share-shows:/data/shows
-    networks:
-      - home-lab-network
 
   prowlarr:
     container_name: prowlarr
     image: lscr.io/linuxserver/prowlarr:latest
-    restart: unless-stopped
+    restart: always
     environment:
       - UMASK=022
       - PUID=1000
@@ -119,13 +73,11 @@ services:
       - ${PROWLARR_PORT}:9696
     volumes:
       - prowlarr-config:/config
-    networks:
-      - home-lab-network
 
   overseerr:
     container_name: overseerr
     image: lscr.io/linuxserver/overseerr:latest
-    restart: unless-stopped
+    restart: always
     environment:
       - UMASK=022
       - PUID=1000
@@ -134,8 +86,6 @@ services:
       - ${OVERSEERR_PORT}:5055
     volumes:
       - overseerr-config:/config
-    networks:
-      - home-lab-network
 
   plex:
     container_name: plex
@@ -149,3 +99,42 @@ services:
       - nas-share-library:/config
       - nas-share-movies:/data/movies
       - nas-share-shows:/data/shows
+
+volumes:
+  sonarr-config:
+    name: sonarr-config
+  radarr-config:
+    name: radarr-config
+  deluge-config:
+    name: deluge-config
+  bazarr-config:
+    name: bazarr-config
+  prowlarr-config:
+    name: prowlarr-config
+  overseerr-config:
+    name: overseerr-config
+  nas-share-downloads:
+    name: nas-share-downloads
+    driver_opts: &driver-default
+      type: cifs
+      o: username=${NET_USER},password=${NET_USER_PASSWORD?err},rw,uid=1000,gid=1000
+      device: ${NAS_MACHINE}/downloads
+  nas-share-movies:
+    name: nas-share-movies
+    driver_opts:
+      <<: *driver-default
+      device: ${NAS_MACHINE}/movies
+  nas-share-shows:
+    name: nas-share-shows
+    driver_opts:
+      <<: *driver-default
+      device: ${NAS_MACHINE}/shows
+  nas-share-library:
+    name: nas-share-library
+    driver_opts:
+      <<: *driver-default
+      device: ${NAS_MACHINE}/plex-library
+
+networks:
+  default:
+    name: $NETWORK_NAME
