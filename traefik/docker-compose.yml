@@ -1,0 +1,55 @@
+version: '3.9'
+name: traefik
+services:
+  traefik:
+    container_name: traefik
+    image: traefik:latest
+    restart: always
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    ports:
+      - 80:80
+      - 443:443
+    environment:
+      - CF_API_EMAIL=${DNS_EMAIL:?err}
+      - CF_DNS_API_TOKEN=${CF_API_TOKEN:?err}
+      #- CF_API_KEY=${CF_API_KEY:?err}
+    configs:
+      - traefik-yml
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik-data:/traefik.yml:ro
+      - traefik-data:/acme.json
+      - traefik-data:/config.yml:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.${HOST_ADDRESS:?err}`)"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=USER:${BASIC_AUTH_PASSWORD:?err}"
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.routers.traefik-secure.entrypoints=https"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.${HOST_ADDRESS:?err}`)"
+      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=${HOST_ADDRESS:?err}"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.${HOST_ADDRESS:?err}"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
+
+configs:
+  traefik-yml:
+    external: true
+    name: "traefik.yml"
+
+volumes:
+  traefik-data:
+    name: traefik-data
+
+networks:
+  proxy:
+    name: proxy

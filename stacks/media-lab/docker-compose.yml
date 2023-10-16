@@ -10,7 +10,7 @@ services:
       - UMASK=022 #optional
       - DELUGE_LOGLEVEL=error #optional
     ports:
-      - ${DELUGE_PORT}:8112
+      - ${DELUGE_PORT:-8112}:8112
       - 58846:58846
       - 58946:58946/udp
     volumes:
@@ -30,7 +30,7 @@ services:
       - PUID=1000
       - PGID=1000
     ports:
-      - ${SONARR_PORT}:8989
+      - ${SONARR_PORT:-8989}:8989
     volumes:
       - sonarr-config:/config
       - nas-share-downloads:/data/downloads
@@ -47,7 +47,7 @@ services:
       - PUID=1000
       - PGID=1000
     ports:
-      - ${RADARR_PORT}:7878
+      - ${RADARR_PORT:-7878}:7878
     volumes:
       - radarr-config:/config
       - nas-share-downloads:/data/downloads
@@ -60,7 +60,7 @@ services:
     image: lscr.io/linuxserver/bazarr:latest
     restart: always
     ports:
-      - ${BAZARR_PORT}:6767
+      - ${BAZARR_PORT:-6767}:6767
     volumes:
       - bazarr-config:/config
       - nas-share-downloads:/data/downloads
@@ -78,7 +78,7 @@ services:
       - PUID=1000
       - PGID=1000
     ports:
-      - ${PROWLARR_PORT}:9696
+      - ${PROWLARR_PORT:-9696}:9696
     volumes:
       - prowlarr-config:/config
     networks:
@@ -93,7 +93,7 @@ services:
       - PUID=1000
       - PGID=1000
     ports:
-      - ${OVERSEERR_PORT}:5055
+      - ${OVERSEERR_PORT:-5055}:5055
     volumes:
       - overseerr-config:/config
     networks:
@@ -129,24 +129,24 @@ volumes:
     name: nas-share-downloads
     driver_opts: &driver-default
       type: cifs
-      o: username=${NET_USER},password=${NET_USER_PASSWORD?err},rw,uid=1000,gid=1000
-      device: ${NAS_MACHINE}/downloads
+      o: username=${NET_USER?err},password=${NET_USER_PASSWORD?err},rw,uid=1000,gid=1000
+      device: ${NAS_MACHINE:?err}/downloads
   nas-share-movies:
     name: nas-share-movies
     driver_opts:
       <<: *driver-default
-      device: ${NAS_MACHINE}/movies
+      device: ${NAS_MACHINE:?err}/movies
   nas-share-shows:
     name: nas-share-shows
     driver_opts:
       <<: *driver-default
-      device: ${NAS_MACHINE}/shows
+      device: ${NAS_MACHINE:?err}/shows
   nas-share-library:
     name: nas-share-library
     driver_opts:
       <<: *driver-default
-      device: ${NAS_MACHINE}/plex-library
+      device: ${NAS_MACHINE:?err}/plex-library
 
 networks:
   media-lab:
-    name: $NETWORK_NAME
+    name: ${NETWORK_NAME:-media-network}

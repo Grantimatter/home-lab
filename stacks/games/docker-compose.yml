@@ -1,7 +1,0 @@
-version: "3.9"
-name: game-lab
-services:
-
-volumes:
-
-networks:
