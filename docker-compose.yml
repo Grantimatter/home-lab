@@ -41,3 +41,4 @@ networks:
     name: $LAB_NETWORK_NAME
   media-network:
     name: $MEDIA_NETWORK_NAME
+    external: true

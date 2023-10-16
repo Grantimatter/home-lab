@@ -18,6 +18,8 @@ services:
       - nas-share-downloads:/data/downloads
       - nas-share-movies:/data/movies
       - nas-share-shows:/data/shows
+    networks:
+      - media-lab
 
   sonarr:
     container_name: sonarr
@@ -33,6 +35,8 @@ services:
       - sonarr-config:/config
       - nas-share-downloads:/data/downloads
       - nas-share-shows:/data/shows
+    networks:
+      - media-lab
 
   radarr:
     container_name: radarr
@@ -48,6 +52,8 @@ services:
       - radarr-config:/config
       - nas-share-downloads:/data/downloads
       - nas-share-movies:/data/movies
+    networks:
+      - media-lab
 
   bazarr:
     container_name: bazarr
@@ -60,6 +66,8 @@ services:
       - nas-share-downloads:/data/downloads
       - nas-share-movies:/data/movies
       - nas-share-shows:/data/shows
+    networks:
+      - media-lab
 
   prowlarr:
     container_name: prowlarr
@@ -73,6 +81,8 @@ services:
       - ${PROWLARR_PORT}:9696
     volumes:
       - prowlarr-config:/config
+    networks:
+      - media-lab
 
   overseerr:
     container_name: overseerr
@@ -86,6 +96,8 @@ services:
       - ${OVERSEERR_PORT}:5055
     volumes:
       - overseerr-config:/config
+    networks:
+      - media-lab
 
   plex:
     container_name: plex
@@ -136,5 +148,5 @@ volumes:
       device: ${NAS_MACHINE}/plex-library
 
 networks:
-  default:
+  media-lab:
     name: $NETWORK_NAME
