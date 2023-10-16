@@ -18,17 +18,16 @@ services:
       #- CF_API_KEY=${CF_API_KEY:?err}
     configs:
       - traefik-yml
+      - traefik-acme
+      - traefik-config
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - traefik-data:/traefik.yml:ro
-      - traefik-data:/acme.json
-      - traefik-data:/config.yml:ro
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=http"
       - "traefik.http.routers.traefik.rule=Host(`traefik.${HOST_ADDRESS:?err}`)"
-      - "traefik.http.middlewares.traefik-auth.basicauth.users=USER:${BASIC_AUTH_PASSWORD:?err}"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=${USER:?err}:${HASHED_PASSWORD:?err}"
       - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
       - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
@@ -44,7 +43,13 @@ services:
 configs:
   traefik-yml:
     external: true
-    name: "traefik.yml"
+    name: "data/traefik.yml"
+  traefik-acme:
+    external: true
+    name: "data/acme.json"
+  traefik-config:
+    external: true
+    name: "data/config.yml"
 
 volumes:
   traefik-data:
