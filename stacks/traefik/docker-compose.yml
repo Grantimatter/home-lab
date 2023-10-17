@@ -19,7 +19,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${DATA_PATH:?err}:/data
+      - ${DATA_PATH:?err}:/
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=http"
