@@ -42,14 +42,11 @@ services:
 
 configs:
   traefik-yml:
-    external: true
-    name: "data/traefik.yml"
+    file: "stacks/traefik/data/traefik.yml"
   traefik-acme:
-    external: true
-    name: "data/acme.json"
+    file: "stacks/trafik/data/acme.json"
   traefik-config:
-    external: true
-    name: "data/config.yml"
+    file: "stacks/traefik/data/config.yml"
 
 networks:
   proxy:
