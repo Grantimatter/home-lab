@@ -3,7 +3,7 @@ name: ${SERVICE_NAME:?err}
 services:
   app:
     extends: 
-      file: ../../../default-service.yml
+      file: ${BASE_DIR}/default-service.yml
       service: app
     image: portainer/portainer-ce:latest
     ports:
