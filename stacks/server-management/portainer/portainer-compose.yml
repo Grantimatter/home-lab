@@ -12,11 +12,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${SERVICE_NAME}-data:/data
-
-volumes:
-  portainer-data:
-    name: ${SERVICE_NAME}-data
+      - ${PWD}/config/portainer:/config
 
 networks:
   proxy:

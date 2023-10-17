@@ -9,8 +9,4 @@ services:
     ports:
       - ${OVERSEERR_PORT:-5055}:5055
     volumes:
-      - overseerr-config:/config
-
-volumes:
-  overseerr-config:
-    name: overseerr-config
+      - ${PWD}/config/overseerr:/config

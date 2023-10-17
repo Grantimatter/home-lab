@@ -9,9 +9,5 @@ services:
     ports:
       - ${RADARR_PORT:-7878}:7878
     volumes:
-      - radarr-config:/config
+      - ${PWD}/config/radarr:/config
       - nas-share-movies:/data/movies
-
-volumes:
-  radarr-config:
-    name: radarr-config

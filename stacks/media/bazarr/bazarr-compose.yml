@@ -9,10 +9,6 @@ services:
     ports:
       - ${BAZARR_PORT:-6767}:6767
     volumes:
-      - bazarr-config:/config
+      - ${PWD}/config/bazarr:/config
       - nas-share-movies:/data/movies
       - nas-share-shows:/data/shows
-
-volumes:
-  bazarr-config:
-    name: bazarr-config

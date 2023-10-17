@@ -1,2 +1,3 @@
 *.secret
 *.ignore
+/config

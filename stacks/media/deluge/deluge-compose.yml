@@ -13,10 +13,6 @@ services:
       - 58846:58846
       - 58946:58946/udp
     volumes:
-      - deluge-config:/config
+      - ${PWD}/config/deluge:/config
       - nas-share-movies:/data/movies
       - nas-share-shows:/data/shows
-
-volumes:
-  deluge-config:
-    name: deluge-config
