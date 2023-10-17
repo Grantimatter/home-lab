@@ -42,14 +42,11 @@ services:
 
 configs:
   traefik-yml:
-    external: true
-    name: "stacks/traefik/data/traefik.yml"
+    file: "stacks/traefik/data/traefik.yml"
   traefik-acme:
-    external: true
-    name: "stacks/traefik/data/acme.json"
+    file: "stacks/traefik/data/acme.json"
   traefik-config:
-    external: true
-    name: "stacks/traefik/data/config.yml"
+    file: "stacks/traefik/data/config.yml"
 
 volumes:
   traefik-data:
