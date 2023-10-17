@@ -2,6 +2,7 @@ version: '3.9'
 name: ${SERVICE_NAME:?err}
 services:
   traefik:
+    container_name: ${SERVICE_NAME:?err}
     image: traefik:latest
     security_opt:
       - no-new-privileges:true
