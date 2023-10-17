@@ -42,11 +42,11 @@ services:
 
 configs:
   traefik-yml:
-    file: "stacks/traefik/data/traefik.yml"
+    file: "data/traefik.yml"
   traefik-acme:
-    file: "stacks/traefik/data/acme.json"
+    file: "data/acme.json"
   traefik-config:
-    file: "stacks/traefik/data/config.yml"
+    file: "data/config.yml"
 
 volumes:
   traefik-data:
