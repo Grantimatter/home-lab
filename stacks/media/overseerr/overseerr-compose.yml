@@ -1,7 +1,7 @@
 version: "3.9"
 name: ${SERVICE_NAME:?err}
 services:
-  prowlarr:
+  overseer:
     extends:
       file: ${PWD}/stacks/media/proxied-media-service.yml
       service: proxied-media
