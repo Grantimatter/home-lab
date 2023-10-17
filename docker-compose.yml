@@ -41,9 +41,9 @@ services:
     networks:
       - lab-network
       - media-network
+      - proxy
     labels:
       - "traefik.http.routers.homarr.rule=Host(`homarr.${HOST_ADDRESS:?err}`)"
-
 
 volumes:
   portainer-data:
