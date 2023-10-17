@@ -2,12 +2,11 @@ version: '3.9'
 name: ${SERVICE_NAME:?err}
 services:
   traefik:
-    extends:
-      file: ${PWD}/proxied-service.yml
-      service: proxied
     image: traefik:latest
     security_opt:
       - no-new-privileges:true
+    networks:
+      - proxy
     ports:
       - ${EXPOSED_PORT:-80}:80
       - 443:443
@@ -21,12 +20,21 @@ services:
       - ./data/acme.json:/acme.json
       - ./data/config.yml:/config.yml:ro
     labels:
-      - "traefik.http.middlewares.${SERVICE_NAME:?err}-auth.basicauth.users=${USER:?err}:${HASHED_PASSWORD:?err}"
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.routers.traefik.rule=Host(`${SERVICE_NAME:?err}.${HOST_ADDRESS}`)"
+      - "traefik.http.middlewares.traefik-auth.basicauth.users=USER:BASIC_AUTH_PASSWORD"
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
-      - "traefik.http.routers.${SERVICE_NAME:?err}.middlewares=${SERVICE_NAME:?err}-auth"
-      - "traefik.http.routers.${SERVICE_NAME:?err}.tls.domains[0].main=${HOST_ADDRESS:?err}"
-      - "traefik.http.routers.${SERVICE_NAME:?err}.tls.domains[0].sans=*.${HOST_ADDRESS:?err}"
-      - "traefik.http.routers.${SERVICE_NAME:?err}.service=api@internal"
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.routers.traefik-secure.entrypoints=https"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik-dashboard.${HOST_ADDRESS}`)"
+      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=${HOST_ADDRESS}"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.${HOST_ADDRESS}"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
 
 networks:
   proxy:
