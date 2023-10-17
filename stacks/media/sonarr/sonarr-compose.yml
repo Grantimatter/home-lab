@@ -9,5 +9,5 @@ services:
     ports:
       - ${SONARR_PORT:-8989}:8989
     volumes:
-      - ${PWD}/config/sonarr:/config
+      - ${PWD}/config/${SERVICE_NAME:?err}:/config
       - nas-share-shows:/data/shows

@@ -9,4 +9,4 @@ services:
     ports:
       - ${OVERSEERR_PORT:-5055}:5055
     volumes:
-      - ${PWD}/config/overseerr:/config
+      - ${PWD}/config/${SERVICE_NAME:?err}:/config

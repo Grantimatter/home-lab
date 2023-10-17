@@ -9,7 +9,7 @@ services:
     ports:
       - ${HOMARR_PORT:-7575}:7575
     volumes:
-      - ${PWD}/config/homarr:/app/data/configs
-      - ${PWD}/config/homarr:/app/public/icons
+      - ${PWD}/config/${SERVICE_NAME:?err}:/app/data/configs
+      - ${PWD}/data/${SERVICE_NAME:?err}:/app/public/icons
     networks:
       - media

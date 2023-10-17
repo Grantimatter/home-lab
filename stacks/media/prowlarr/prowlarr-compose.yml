@@ -9,4 +9,4 @@ services:
     ports:
       - ${PROWLARR_PORT:-9696}:9696
     volumes:
-      - ${PWD}/config/prowlarr:/config
+      - ${PWD}/config/${SERVICE_NAME:?err}:/config

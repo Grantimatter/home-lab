@@ -9,5 +9,5 @@ services:
     ports:
       - ${RADARR_PORT:-7878}:7878
     volumes:
-      - ${PWD}/config/radarr:/config
+      - ${PWD}/config/${SERVICE_NAME:?err}:/config
       - nas-share-movies:/data/movies
