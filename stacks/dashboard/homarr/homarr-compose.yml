@@ -9,13 +9,7 @@ services:
     ports:
       - ${HOMARR_PORT:-7575}:7575
     volumes:
-      - homarr-config:/app/data/configs
-      - homarr-data:/app/public/icons
+      - ${PWD}/config/homarr:/app/data/configs
+      - ${PWD}/config/homarr:/app/public/icons
     networks:
       - media
-
-volumes:
-  homarr-config:
-    name: homarr-config
-  homarr-data:
-    name: homarr-data
