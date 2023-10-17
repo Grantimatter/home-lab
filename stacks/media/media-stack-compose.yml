@@ -4,6 +4,7 @@ include:
   - radarr/radarr-compose.yml
   - sonarr/sonarr-compose.yml
   - bazarr/bazarr-compose.yml
+  - prowlarr/prowlarr-compose.yml
   - overseerr/overseerr-compose.yml
   - deluge/deluge-compose.yml
   - plex/plex-compose.yml
