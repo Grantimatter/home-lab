@@ -7,7 +7,6 @@ services:
       service: proxied-media
     image: linuxserver/sonarr:latest
     ports:
-      - ${SONARR_PORT:-8989}:8989
+      - ${SERVICE_PORT:?err}:8989
     volumes:
-      - ${PWD}/config/${SERVICE_NAME:?err}:/config
       - nas-share-shows:/data/shows

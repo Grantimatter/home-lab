@@ -7,7 +7,7 @@ services:
       service: proxied-media
     image: lscr.io/linuxserver/radarr:latest
     ports:
-      - ${RADARR_PORT:-7878}:7878
+      - ${SERVICE_PORT:?err}:7878
     volumes:
       - ${PWD}/config/${SERVICE_NAME:?err}:/config
       - nas-share-movies:/data/movies

@@ -7,6 +7,6 @@ services:
       service: proxied-media
     image: lscr.io/linuxserver/overseerr:latest
     ports:
-      - ${OVERSEERR_PORT:-5055}:5055
+      - ${SERVICE_PORT:?err}:5055
     volumes:
       - ${PWD}/config/${SERVICE_NAME:?err}:/config

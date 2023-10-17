@@ -14,7 +14,7 @@ services:
       - "traefik.http.routers.${SERVICE_NAME}-secure.rule=Host(`${SERVICE_NAME}.${HOST_ADDRESS}`)"
       - "traefik.http.routers.${SERVICE_NAME}-secure.tls=true"
       - "traefik.http.routers.${SERVICE_NAME}-secure.service=${SERVICE_NAME}"
-      - "traefik.http.services.${SERVICE_NAME}.loadbalancer.server.port=9000"
+      - "traefik.http.services.${SERVICE_NAME}.loadbalancer.server.port=${SERVICE_PORT:?err}"
       - "traefik.docker.network=proxy"
     networks:
       - proxy

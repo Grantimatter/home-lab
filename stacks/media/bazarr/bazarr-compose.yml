@@ -7,7 +7,7 @@ services:
       service: proxied-media
     image: lscr.io/linuxserver/bazarr:latest
     ports:
-      - ${BAZARR_PORT:-6767}:6767
+      - ${SERVICE_PORT:?err}:6767
     volumes:
       - ${PWD}/config/bazarr:/config
       - nas-share-movies:/data/movies

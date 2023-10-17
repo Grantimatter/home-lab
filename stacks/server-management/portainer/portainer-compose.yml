@@ -7,7 +7,7 @@ services:
       service: proxied
     image: portainer/portainer-ce:latest
     ports:
-      - ${PORTAINER_PORT:-9443}:9443
+      - ${SERVICE_PORT:?err}:9443
       - 8000:8000
     volumes:
       - /etc/localtime:/etc/localtime:ro

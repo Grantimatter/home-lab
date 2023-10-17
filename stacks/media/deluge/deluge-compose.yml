@@ -9,7 +9,7 @@ services:
     environment:
       - DELUGE_LOGLEVEL=error #optional
     ports:
-      - ${DELUGE_PORT:-8112}:8112
+      - ${SERVICE_PORT:?err}:8112
       - 58846:58846
       - 58946:58946/udp
     volumes:

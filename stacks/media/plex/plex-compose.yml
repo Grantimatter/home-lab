@@ -2,7 +2,7 @@ version: "3.9"
 name: ${SERVICE_NAME:?err}
 services:
   plex:
-    container_name: plex
+    container_name: ${SERVICE_NAME:?err}
     image: lscr.io/linuxserver/plex:latest
     network_mode: host
     environment:

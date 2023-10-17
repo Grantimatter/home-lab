@@ -7,6 +7,6 @@ services:
       service: proxied-media
     image: lscr.io/linuxserver/prowlarr:latest
     ports:
-      - ${PROWLARR_PORT:-9696}:9696
+      - ${SERVICE_PORT:?err}:9696
     volumes:
       - ${PWD}/config/${SERVICE_NAME:?err}:/config

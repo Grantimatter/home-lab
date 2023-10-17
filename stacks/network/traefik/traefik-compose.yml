@@ -9,7 +9,7 @@ services:
     networks:
       - proxy
     ports:
-      - ${EXPOSED_PORT:-80}:80
+      - ${SERVICE_PORT:?err}:80
       - 443:443
     environment:
       - CF_API_EMAIL=${DNS_EMAIL:?err}
@@ -40,3 +40,4 @@ services:
 networks:
   proxy:
     name: proxy
+    external: true
