@@ -16,13 +16,12 @@ services:
       - CF_API_EMAIL=${DNS_EMAIL:?err}
       - CF_DNS_API_TOKEN=${CF_API_TOKEN:?err}
       #- CF_API_KEY=${CF_API_KEY:?err}
-    configs:
-      - traefik-yml
-      - traefik-acme
-      - traefik-config
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./data/traefik-yml:/traefik.yml:ro
+      - ./data/traefik-acme:/acme.json
+      - ./data/traefik-config:/config.yml:ro
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.traefik.entrypoints=http"
@@ -39,14 +38,6 @@ services:
       - "traefik.http.routers.traefik-secure.tls.domains[0].main=${HOST_ADDRESS:?err}"
       - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.${HOST_ADDRESS:?err}"
       - "traefik.http.routers.traefik-secure.service=api@internal"
-
-configs:
-  traefik-yml:
-    file: "stacks/traefik/data/traefik.yml"
-  traefik-acme:
-    file: "stacks/trafik/data/acme.json"
-  traefik-config:
-    file: "stacks/traefik/data/config.yml"
 
 networks:
   proxy:
