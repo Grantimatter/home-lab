@@ -1,43 +1,33 @@
 version: '3.9'
-name: traefik
+name: ${SERVICE_NAME:?err}
 services:
-  traefik:
-    container_name: traefik
+  app:
+    extends:
+      file: ../../../default-service.yml
     image: traefik:latest
-    restart: always
     security_opt:
       - no-new-privileges:true
-    networks:
-      - proxy
     ports:
-      - 80:80
+      - ${EXPOSED_PORT:-80}:80
       - 443:443
     environment:
       - CF_API_EMAIL=${DNS_EMAIL:?err}
       - CF_DNS_API_TOKEN=${CF_API_TOKEN:?err}
-      #- CF_API_KEY=${CF_API_KEY:?err}
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ${DATA_PATH:?err}/traefik.yml:/traefik.yml:ro
       - ${DATA_PATH:?err}/acme.json:/acme.json
       - ${DATA_PATH:?err}/config.yml:/config.yml:ro
+    networks:
+      - proxy
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.traefik.entrypoints=http"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.${HOST_ADDRESS:?err}`)"
-      - "traefik.http.middlewares.traefik-auth.basicauth.users=${USER:?err}:${HASHED_PASSWORD:?err}"
-      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.${SERVICE_NAME:?err}-auth.basicauth.users=${USER:?err}:${HASHED_PASSWORD:?err}"
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
-      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
-      - "traefik.http.routers.traefik-secure.entrypoints=https"
-      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.${HOST_ADDRESS:?err}`)"
-      - "traefik.http.routers.traefik-secure.middlewares=traefik-auth"
-      - "traefik.http.routers.traefik-secure.tls=true"
-      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].main=${HOST_ADDRESS:?err}"
-      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.${HOST_ADDRESS:?err}"
-      - "traefik.http.routers.traefik-secure.service=api@internal"
+      - "traefik.http.routers.${SERVICE_NAME:?err}-secure.middlewares=${SERVICE_NAME:?err}-auth"
+      - "traefik.http.routers.${SERVICE_NAME:?err}-secure.tls.domains[0].main=${HOST_ADDRESS:?err}"
+      - "traefik.http.routers.${SERVICE_NAME:?err}-secure.tls.domains[0].sans=*.${HOST_ADDRESS:?err}"
+      - "traefik.http.routers.${SERVICE_NAME:?err}-secure.service=api@internal"
 
 networks:
   proxy:

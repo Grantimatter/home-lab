@@ -1,0 +1,47 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Root Compose Config",
+            "type": "shell",
+            "command": "docker compose -f docker-compose.yml config -q",
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": true
+            }
+        },
+        {
+            "label": "Media Compose Config",
+            "type": "shell",
+            "command": "docker compose -f stacks/media-lab/docker-compose.yml config -q",
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": true
+            }
+        },
+        {
+            "label": "Test All Configs",
+            "type": "shell",
+            "command": "find ./ -type f -name \"docker-compose.y*\" -exec docker compose -f {} config -q \\;",
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": true
+            },
+        },
+    ]
+}
