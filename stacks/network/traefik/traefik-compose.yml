@@ -23,10 +23,10 @@ services:
     labels:
       - "traefik.http.middlewares.${SERVICE_NAME:?err}-auth.basicauth.users=${USER:?err}:${HASHED_PASSWORD:?err}"
       - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
-      - "traefik.http.routers.${SERVICE_NAME:?err}-secure.middlewares=${SERVICE_NAME:?err}-auth"
-      - "traefik.http.routers.${SERVICE_NAME:?err}-secure.tls.domains[0].main=${HOST_ADDRESS:?err}"
-      - "traefik.http.routers.${SERVICE_NAME:?err}-secure.tls.domains[0].sans=*.${HOST_ADDRESS:?err}"
-      - "traefik.http.routers.${SERVICE_NAME:?err}-secure.service=api@internal"
+      - "traefik.http.routers.${SERVICE_NAME:?err}.middlewares=${SERVICE_NAME:?err}-auth"
+      - "traefik.http.routers.${SERVICE_NAME:?err}.tls.domains[0].main=${HOST_ADDRESS:?err}"
+      - "traefik.http.routers.${SERVICE_NAME:?err}.tls.domains[0].sans=*.${HOST_ADDRESS:?err}"
+      - "traefik.http.routers.${SERVICE_NAME:?err}.service=api@internal"
 
 networks:
   proxy:

@@ -7,13 +7,13 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${SERVICE_NAME}.entrypoints=http"
-      - "traefik.http.routers.${SERVICE_NAME}.rule=Host(`${SERVICE_NAME}.lab.wiswellgrant.com`)"
+      - "traefik.http.routers.${SERVICE_NAME}.rule=Host(`${SERVICE_NAME}.${HOST_ADDRESS}`)"
       - "traefik.http.middlewares.${SERVICE_NAME}-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.routers.${SERVICE_NAME}.middlewares=${SERVICE_NAME}-https-redirect"
-      - "traefik.http.routers.${SERVICE_NAME}-secure.entrypoints=https"
-      - "traefik.http.routers.${SERVICE_NAME}-secure.rule=Host(`${SERVICE_NAME}.lab.wiswellgrant.com`)"
-      - "traefik.http.routers.${SERVICE_NAME}-secure.tls=true"
-      - "traefik.http.routers.${SERVICE_NAME}-secure.service=${SERVICE_NAME}"
+      - "traefik.http.routers.${SERVICE_NAME}.entrypoints=https"
+      - "traefik.http.routers.${SERVICE_NAME}.rule=Host(`${SERVICE_NAME}.${HOST_ADDRESS}`)"
+      - "traefik.http.routers.${SERVICE_NAME}.tls=true"
+      - "traefik.http.routers.${SERVICE_NAME}.service=${SERVICE_NAME}"
       - "traefik.http.services.${SERVICE_NAME}.loadbalancer.server.port=9000"
       - "traefik.docker.network=proxy"
     networks:
