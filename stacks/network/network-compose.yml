@@ -1,0 +1,4 @@
+version: "3.9"
+name: network-stack
+include:
+  - traefik/traefik-compose.yml

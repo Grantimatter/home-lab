@@ -1,0 +1,4 @@
+version: "3.9"
+name: dashboard-stack
+include:
+  - homarr/homarr-compose.yml

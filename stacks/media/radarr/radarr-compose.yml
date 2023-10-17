@@ -1,0 +1,17 @@
+version: "3.9"
+name: ${SERVICE_NAME:?err}
+services:
+  radarr:
+    extends:
+      file: ${PWD}/stacks/media/proxied-media-service.yml
+      service: proxied-media
+    image: lscr.io/linuxserver/radarr:latest
+    ports:
+      - ${RADARR_PORT:-7878}:7878
+    volumes:
+      - radarr-config:/config
+      - nas-share-movies:/data/movies
+
+volumes:
+  radarr-config:
+    name: radarr-config

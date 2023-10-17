@@ -1,10 +1,10 @@
 version: "3.9"
 name: ${SERVICE_NAME:?err}
 services:
-  app:
+  portainer:
     extends: 
-      file: ${BASE_DIR}/default-service.yml
-      service: app
+      file: ${PWD}/proxied-service.yml
+      service: proxied
     image: portainer/portainer-ce:latest
     ports:
       - ${EXPOSED_PORT:-9443}:9443
@@ -13,8 +13,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ${SERVICE_NAME}-data:/data
-    networks:
-      - proxy
 
 volumes:
   portainer-data:
@@ -22,5 +20,4 @@ volumes:
 
 networks:
   proxy:
-    name: proxy
     external: true

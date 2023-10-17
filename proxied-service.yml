@@ -1,7 +1,7 @@
 version: "3.9"
 name: ${SERVICE_NAME:?err}
 services:
-  app:
+  proxied:
     container_name: ${SERVICE_NAME}
     restart: unless-stopped
     labels:
@@ -16,3 +16,5 @@ services:
       - "traefik.http.routers.${SERVICE_NAME}-secure.service=${SERVICE_NAME}"
       - "traefik.http.services.${SERVICE_NAME}.loadbalancer.server.port=9000"
       - "traefik.docker.network=proxy"
+    networks:
+      - proxy

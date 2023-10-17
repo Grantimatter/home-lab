@@ -1,0 +1,15 @@
+version: "3.9"
+name: ${SERVICE_NAME:?err}
+services:
+  plex:
+    container_name: plex
+    image: lscr.io/linuxserver/plex:latest
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+    volumes:
+      - nas-share-library:/config
+      - nas-share-movies:/data/movies
+      - nas-share-shows:/data/shows

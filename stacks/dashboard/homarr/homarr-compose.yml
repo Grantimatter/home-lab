@@ -1,0 +1,21 @@
+version: "3.9"
+name: ${SERVICE_NAME:?err}
+services:
+  homarr:
+    extends:
+      file: ${PWD}/proxied-service.yml
+      service: proxied
+    image: ghcr.io/ajnart/homarr:latest
+    ports:
+      - ${HOMARR_PORT:-7575}:7575
+    volumes:
+      - homarr-config:/app/data/configs
+      - homarr-data:/app/public/icons
+    networks:
+      - media
+
+volumes:
+  homarr-config:
+    name: homarr-config
+  homarr-data:
+    name: homarr-data
