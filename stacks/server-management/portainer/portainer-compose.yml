@@ -7,12 +7,12 @@ services:
       service: proxied
     image: portainer/portainer-ce:latest
     ports:
-      - ${EXPOSED_PORT:-9443}:9443
+      - ${PORTAINER_PORT:-9443}:9443
       - 8000:8000
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${PWD}/config/portainer:/config
+      - ${PWD}/config/portainer:/data
 
 networks:
   proxy:
