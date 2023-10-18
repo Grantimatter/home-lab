@@ -5,7 +5,7 @@ services:
     extends:
       file: ${PWD}/stacks/media/proxied-media-service.yml
       service: proxied-media
-    image: linuxserver/sonarr:latest
+    image: lscr.io/linuxserver/sonarr:develop
     ports:
       - ${SERVICE_PORT:?err}:8989
     volumes:
