@@ -1,0 +1,17 @@
+version: "3.9"
+name: ${SERVICE_NAME:?err}
+services:
+  dashdot:
+    extends:
+      file: ${PWD}/proxied-service.yml
+      service: proxied
+    image: mauricenino/dashdot:latest
+    privaleged: true
+    environment:
+      - DASHDOT_ENABLE_CPU_TEMPS=true
+      - DASHDOT_ALWAYS_SHOW_PERCENTAGES=true
+      - DASHDOT_ACCEPT_OOKLA_EULA=true #Accepts Ookla EULA
+    ports:
+      - ${SERVICE_PORT:?err}:3001
+    volumes:
+      - /:/mnt/host:ro
