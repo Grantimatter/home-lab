@@ -12,5 +12,5 @@ services:
       - 58846:58846
       - 58946:58946/udp
     volumes:
-      - nas-share-movies:/data/movies
-      - nas-share-shows:/data/shows
+      - nas-share-movies:/data/movies:rw
+      - nas-share-shows:/data/shows:rw

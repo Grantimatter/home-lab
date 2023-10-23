@@ -6,8 +6,8 @@ services:
       file: ../../proxied-service.yml
       service: proxied
     volumes:
-      - nas-share-downloads:/data/downloads
-      - ../../config/${SERVICE_NAME:?err}:/config
+      - nas-share-downloads:/data/downloads:rw
+      - ../../config/${SERVICE_NAME:?err}:/config:rw
     environment:
       - UMASK=022
       - PUID=1000

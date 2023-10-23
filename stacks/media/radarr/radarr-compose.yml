@@ -7,4 +7,4 @@ services:
       service: proxied-media
     image: lscr.io/linuxserver/radarr:latest
     volumes:
-      - nas-share-movies:/data/movies
+      - nas-share-movies:/data/movies:rw
