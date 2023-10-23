@@ -3,10 +3,9 @@ name: ${SERVICE_NAME:?err}
 services:
   bazarr:
     extends:
-      file: ${PWD}/stacks/media/proxied-media-service.yml
+      file: ../proxied-media-service.yml
       service: proxied-media
     image: lscr.io/linuxserver/bazarr:latest
     volumes:
-      - ${PWD}/config/bazarr:/config
       - nas-share-movies:/data/movies
       - nas-share-shows:/data/shows

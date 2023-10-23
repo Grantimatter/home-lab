@@ -3,13 +3,13 @@ name: ${SERVICE_NAME:?err}
 services:
   portainer:
     extends: 
-      file: ${PWD}/proxied-service.yml
+      file: ../../../proxied-service.yml
       service: proxied
     image: portainer/portainer-ce:latest
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ${PWD}/config/portainer:/data
+      - ../../../config/portainer:/data
 
 networks:
   proxy:

@@ -3,7 +3,7 @@ name: ${SERVICE_NAME:?err}
 services:
   dashdot:
     extends:
-      file: ${PWD}/proxied-service.yml
+      file: ../../../proxied-service.yml
       service: proxied
     image: mauricenino/dashdot:latest
     privileged: true

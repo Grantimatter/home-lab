@@ -3,7 +3,7 @@ name: ${SERVICE_NAME:?err}
 services:
   deluge:
     extends:
-      file: ${PWD}/stacks/media/proxied-media-service.yml
+      file: ../proxied-media-service.yml
       service: proxied-media
     image: linuxserver/deluge
     environment:
@@ -11,6 +11,5 @@ services:
       - 58846:58846
       - 58946:58946/udp
     volumes:
-      - ${PWD}/config/${SERVICE_NAME:?err}:/config
       - nas-share-movies:/data/movies
       - nas-share-shows:/data/shows

@@ -3,11 +3,11 @@ name: ${SERVICE_NAME:?err}
 services:
   proxied-media:
     extends:
-      file: ${PWD}/proxied-service.yml
+      file: ../../proxied-service.yml
       service: proxied
     volumes:
       - nas-share-downloads:/data/downloads
-      - ${PWD}/config/${SERVICE_NAME:?err}:/config
+      - ../../config/${SERVICE_NAME:?err}:/config
     environment:
       - UMASK=022
       - PUID=1000
