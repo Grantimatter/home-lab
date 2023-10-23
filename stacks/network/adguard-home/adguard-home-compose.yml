@@ -1,0 +1,26 @@
+version: '3.9'
+name: ${SERVICE_NAME:?err}
+services:
+  adguard-home:
+    extends:
+      file: ../../../proxied-service.yml
+      service: proxied
+    container_name: ${SERVICE_NAME:?err}
+    image: adguard/adguardhome
+    restart: unless-stopped
+    networks:
+      - proxy
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      # - 67:67/udp # DHCP
+      # - 68:68/tcp # DHCP
+      # - 68:68/udp # DHCP
+      - 80:80/tcp
+      - 444:443/tcp
+      - 444:443/udp
+      - ${SERVICE_PORT}:3000/tcp
+      - 853:853/tcp
+    volumes:
+      - ../../../config/${SERVICE_NAME}:/opt/adguardhome/conf
+      - ../../../data/${SERVICE_NAME}:/opt/adguardhome/work
