@@ -6,8 +6,6 @@ services:
       file: ${PWD}/stacks/media/proxied-media-service.yml
       service: proxied-media
     image: lscr.io/linuxserver/radarr:latest
-    ports:
-      - ${SERVICE_PORT:?err}:7878
     volumes:
       - ${PWD}/config/${SERVICE_NAME:?err}:/config
       - nas-share-movies:/data/movies

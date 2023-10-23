@@ -6,8 +6,6 @@ services:
       file: ${PWD}/proxied-service.yml
       service: proxied
     image: ghcr.io/ajnart/homarr:latest
-    ports:
-      - ${SERVICE_PORT:?err}:7575
     volumes:
       - ${PWD}/config/${SERVICE_NAME:?err}:/app/data/configs
       - ${PWD}/data/${SERVICE_NAME:?err}:/app/public/icons

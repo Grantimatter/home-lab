@@ -6,9 +6,6 @@ services:
       file: ${PWD}/proxied-service.yml
       service: proxied
     image: portainer/portainer-ce:latest
-    ports:
-      - ${SERVICE_PORT:?err}:9443
-      - 8000:8000
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
