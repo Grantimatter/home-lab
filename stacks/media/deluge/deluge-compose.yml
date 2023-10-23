@@ -8,6 +8,7 @@ services:
     image: linuxserver/deluge
     environment:
       - DELUGE_LOGLEVEL=error #optional
+    ports:
       - 58846:58846
       - 58946:58946/udp
     volumes:
