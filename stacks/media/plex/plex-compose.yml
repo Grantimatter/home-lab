@@ -9,6 +9,7 @@ services:
       - UMASK=022
       - PUID=1000
       - PGID=1000
+      - PLEX_CLAIM=${PLEX_CLAIM}
       - VERSION=docker
     volumes:
       - nas-share-library:/config
