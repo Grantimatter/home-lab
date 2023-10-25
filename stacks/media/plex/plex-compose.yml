@@ -6,6 +6,7 @@ services:
     image: lscr.io/linuxserver/plex:latest
     network_mode: host
     environment:
+      - UMASK=022
       - PUID=1000
       - PGID=1000
       - VERSION=docker
