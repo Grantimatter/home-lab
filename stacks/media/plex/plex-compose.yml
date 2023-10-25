@@ -4,13 +4,14 @@ services:
   plex:
     container_name: ${SERVICE_NAME:?err}
     image: lscr.io/linuxserver/plex:latest
-    network_mode: host
     environment:
       - UMASK=022
       - PUID=1000
       - PGID=1000
       - PLEX_CLAIM=${PLEX_CLAIM}
       - VERSION=docker
+    ports:
+      - 32400:32400/tcp
     volumes:
       - nas-share-library:/config
       - nas-share-movies:/data/movies
