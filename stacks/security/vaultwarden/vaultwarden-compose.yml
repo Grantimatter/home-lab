@@ -1,0 +1,13 @@
+version: "3.9"
+name: ${SERVICE_NAME:?err}
+services:
+  vaultwarden:
+    extends:
+      file: ../proxied-media-service.yml
+      service: proxied-media
+    image: vaultwarden/server:latest
+    ports:
+      - ${SERVICE_PORT}:80
+    volumes:
+      - ../../../data/${SERVICE_NAME}:/data
+    restart: unless-stopped

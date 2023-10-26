@@ -1,0 +1,15 @@
+version: "3.9"
+name: ${SERVICE_NAME:?err}
+services:
+  jellyfin:
+    container_name: ${SERVICE_NAME:?err}
+    image: jellyfin/jellyfin
+    user: 1000:1000
+    network_mode: 'host'
+    volumes:
+      - nas-share-movies:/data/movies
+      - nas-share-shows:/data/shows
+      - nas-share-library:/cache
+      - ../../../config:/config
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

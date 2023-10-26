@@ -2,5 +2,6 @@ version: "3.9"
 name: home-lab
 include:
   - stacks/network/network-compose.yml
+  - stacks/security/security-compose.yml
   - stacks/dashboard/dashboard-compose.yml
   - stacks/media/media-stack-compose.yml
