@@ -2,9 +2,6 @@ version: "3.9"
 name: ${SERVICE_NAME:?err}
 services:
   plex:
-    extends:
-      file: ../proxied-media-service.yml
-      service: proxied-media
     hostname: ${HOST_NAME:?err}
     network_mode: host
     container_name: ${SERVICE_NAME:?err}
