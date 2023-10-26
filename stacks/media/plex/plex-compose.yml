@@ -23,6 +23,5 @@ services:
       - 32413:32413/udp 
       - 32414:32414/udp 
     volumes:
-      - nas-share-library:/config
       - nas-share-movies:/data/movies
       - nas-share-shows:/data/shows
