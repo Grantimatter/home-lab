@@ -6,8 +6,6 @@ services:
       file: ../../../proxied-service.yml
       service: proxied
     image: vaultwarden/server:latest
-    ports:
-      - ${SERVICE_PORT}:80
     volumes:
       - ../../../data/${SERVICE_NAME}:/data
     restart: unless-stopped
