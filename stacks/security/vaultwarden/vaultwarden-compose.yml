@@ -3,7 +3,7 @@ name: ${SERVICE_NAME:?err}
 services:
   vaultwarden:
     extends:
-      file: ../proxied-media-service.yml
+      file: ../../../proxied-media-service.yml
       service: proxied-media
     image: vaultwarden/server:latest
     ports:
