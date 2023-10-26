@@ -22,3 +22,6 @@ services:
     volumes:
       - nas-share-movies:/data/movies
       - nas-share-shows:/data/shows
+      - nas-share-library:/config
+    networks:
+      - media
