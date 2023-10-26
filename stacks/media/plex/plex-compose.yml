@@ -6,7 +6,7 @@ services:
       file: ../proxied-media-service.yml
       service: proxied-media
     hostname: ${HOST_NAME:?err}
-    network-mode: host
+    network_mode: host
     container_name: ${SERVICE_NAME:?err}
     image: lscr.io/linuxserver/plex:latest
     environment:
