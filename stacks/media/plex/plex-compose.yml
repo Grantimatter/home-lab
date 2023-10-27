@@ -2,6 +2,9 @@ version: "3.9"
 name: ${SERVICE_NAME:?err}
 services:
   plex:
+    extends:
+      file: ../proxied-media-service.yml
+      service: proxied-media
     hostname: ${HOST_NAME:?err}
     container_name: ${SERVICE_NAME:?err}
     image: lscr.io/linuxserver/plex:latest
@@ -22,6 +25,4 @@ services:
     volumes:
       - nas-share-movies:/data/movies
       - nas-share-shows:/data/shows
-      - nas-share-library:/config
-    networks:
-      - media
+      - nas-share-library:/config:rw
