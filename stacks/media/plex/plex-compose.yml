@@ -12,7 +12,7 @@ services:
       - PGID=1000
       - VERSION=docker
       - HOSTNAME=${HOST_NAME:?err}
-      #- PLEX_CLAIM=${PLEX_CLAIM-}
+      - PLEX_CLAIM=${PLEX_CLAIM-}
     volumes:
       - nas-share-movies:/data/movies
       - nas-share-shows:/data/shows
