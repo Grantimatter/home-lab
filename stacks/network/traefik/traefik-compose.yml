@@ -6,15 +6,16 @@ services:
     image: traefik:latest
     restart: unless-stopped
     security_opt:
-      - no-new-privileges:true
+      - no-new-privileges: true
     networks:
       - proxy
     ports:
-      - ${SERVICE_PORT:?err}:80
+      - 80:80
       - 443:443
     environment:
       - CF_API_EMAIL=${DNS_EMAIL:?err}
       - CF_DNS_API_TOKEN=${CF_API_TOKEN:?err}
+      - TZ=US/Central
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro

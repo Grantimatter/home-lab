@@ -8,4 +8,3 @@ services:
     image: vaultwarden/server:latest
     volumes:
       - ../../../data/${SERVICE_NAME}:/data
-    restart: unless-stopped

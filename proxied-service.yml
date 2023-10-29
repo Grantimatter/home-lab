@@ -4,6 +4,12 @@ services:
   proxied:
     container_name: ${SERVICE_NAME}
     restart: unless-stopped
+    security_opt:
+      - no-new-privileges: true
+    environment:
+      - TZ=US/Central
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.${SERVICE_NAME}.entrypoints=http"
@@ -18,3 +24,7 @@ services:
       - "traefik.docker.network=proxy"
     networks:
       - proxy
+
+networks:
+  proxy:
+    external: true

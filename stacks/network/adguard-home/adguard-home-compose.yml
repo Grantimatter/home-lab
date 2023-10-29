@@ -14,7 +14,7 @@ services:
       # - 67:67/udp # DHCP
       # - 68:68/tcp # DHCP
       # - 68:68/udp # DHCP
-      - ${SERVICE_PORT}:80/tcp
+      - ${EXPOSED_PORT}:80/tcp
       - 444:443/tcp
       - 444:443/udp
       - 3000:3000/tcp
