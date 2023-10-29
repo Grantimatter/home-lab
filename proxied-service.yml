@@ -5,7 +5,7 @@ services:
     container_name: ${SERVICE_NAME}
     restart: unless-stopped
     security_opt:
-      - no-new-privileges: true
+      - no-new-privileges:true
     environment:
       - TZ=US/Central
     volumes:
