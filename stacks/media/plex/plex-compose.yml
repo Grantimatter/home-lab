@@ -2,17 +2,19 @@ version: "3.9"
 name: ${SERVICE_NAME:?err}
 services:
   plex:
+    extends:
+      file: ../proxied-media-service.yml
+      service: proxied-media
     container_name: ${SERVICE_NAME:?err}
     image: lscr.io/linuxserver/plex:latest
     restart: unless-stopped
-    network_mode: host
+    network_mode: bridge
     environment:
-      - UMASK=022
-      - PUID=1000
-      - PGID=1000
       - VERSION=docker
       - HOSTNAME=${HOST_NAME:?err}
       - PLEX_CLAIM=${PLEX_CLAIM-}
+    ports:
+      - ${SERVICE_PORT}:32400/tcp
     volumes:
       - nas-share-movies:/data/movies
       - nas-share-shows:/data/shows
