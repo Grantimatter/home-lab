@@ -5,12 +5,13 @@ services:
     extends:
       file: ../proxied-media-service.yml
       service: proxied-media
-    image: linuxserver/deluge
+    image: lscr.io/linuxserver/deluge:latest
     environment:
-      - DELUGE_LOGLEVEL=error #optional
+      - DELUGE_LOGLEVEL=info #optional
     ports:
-      - 58846:58846
-      - 58946:58946/udp
+      - ${SERVICE_PORT}:8112
+      - 6881:6881
+      - 6881:6881/udp
     volumes:
       - nas-share-movies:/data/movies:rw
       - nas-share-shows:/data/shows:rw
