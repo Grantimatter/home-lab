@@ -5,3 +5,4 @@ include:
   - stacks/security/security-compose.yml
   - stacks/dashboard/dashboard-compose.yml
   - stacks/media/media-stack-compose.yml
+  - stacks/server-management/server-management-compose.yml

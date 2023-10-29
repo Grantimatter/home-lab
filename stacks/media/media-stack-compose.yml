@@ -8,7 +8,7 @@ include:
   - overseerr/overseerr-compose.yml
   - deluge/deluge-compose.yml
   - plex/plex-compose.yml
-  - jellyfin/jellyfin-compose.yml
+    #  - jellyfin/jellyfin-compose.yml
 
 volumes:
   nas-share-downloads:
