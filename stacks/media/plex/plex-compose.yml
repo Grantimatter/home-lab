@@ -8,7 +8,6 @@ services:
     container_name: ${SERVICE_NAME:?err}
     image: lscr.io/linuxserver/plex:latest
     restart: unless-stopped
-    network_mode: bridge
     environment:
       - VERSION=docker
       - HOSTNAME=${HOST_NAME:?err}
