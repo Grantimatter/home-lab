@@ -11,10 +11,22 @@ services:
     environment:
       - VERSION=docker
       - HOSTNAME=${HOST_NAME:?err}
+      - ADVERTISE_IP=https://${SERVICE_NAME}.${HOST_ADDRESS}
       - PLEX_CLAIM=${PLEX_CLAIM-}
     ports:
       - ${SERVICE_PORT}:32400/tcp
+      - 1900:1900/udp
+      - 5353:5353/udp
+      - 8324:8324/tcp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
+      - 32469:32469/tcp
     volumes:
       - nas-share-movies:/data/movies
       - nas-share-shows:/data/shows
       - ../../../config/${SERVICE_NAME}:/config
+    networks:
+      proxy:
+        ipv4_address: 192.168.32.15

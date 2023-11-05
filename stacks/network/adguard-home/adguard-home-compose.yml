@@ -23,4 +23,5 @@ services:
       - ../../../config/${SERVICE_NAME}:/opt/adguardhome/conf
       - ../../../data/${SERVICE_NAME}:/opt/adguardhome/work
     networks:
-      - proxy
+      proxy:
+        ipv4_address: 192.168.32.99

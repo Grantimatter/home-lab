@@ -3,3 +3,12 @@ name: network-stack
 include:
   - traefik/traefik-compose.yml
   - adguard-home/adguard-home-compose.yml
+
+networks:
+  proxy:
+    name: "proxy"
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.32.0/24
+          gateway: 192.168.32.1

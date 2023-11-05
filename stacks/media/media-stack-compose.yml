@@ -8,7 +8,6 @@ include:
   - overseerr/overseerr-compose.yml
   - deluge/deluge-compose.yml
   - plex/plex-compose.yml
-    #  - jellyfin/jellyfin-compose.yml
 
 volumes:
   nas-share-downloads:
@@ -36,3 +35,4 @@ volumes:
 networks:
   media:
     name: ${NETWORK_NAME:-media-network}
+    driver: bridge
