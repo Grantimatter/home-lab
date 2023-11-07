@@ -13,4 +13,3 @@
     ```
 
 ## Todo
-    - Create acme.json if not present and chmod 600 on deploy for traefik

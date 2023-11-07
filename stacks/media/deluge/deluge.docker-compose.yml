@@ -1,0 +1,28 @@
+version: "3.9"
+name: ${SERVICE_NAME:?err}
+services:
+  deluge:
+    extends:
+      file: ../proxied-media-service.docker-compose.yml
+      service: proxied-media
+    image: ebrianne/docker-deluge-openvpn
+    environment:
+      - DELUGE_LOGLEVEL=info #optional
+      - DELUGE_DOWNLOAD_DIR=/data/downloads
+      - DELUGE_INCOMPLETE_DIR=/data/downloads
+      - DELUGE_TORRENT_DIR=/config/torrents
+      - DELUGE_WATCH_DIR=/config/watch
+      - OPENVPN_PROVIDER=${OPENVPN_PROVIDER?:err}
+      - OPENVPN_CONFIG=${OPENVPN_CONFIG?:err}
+      - OPENVPN_USERNAME=${OPENVPN_USER?:err}
+      - OPENVPN_PASSWORD=${OPENVPN_PASS?:err}
+      - LOCAL_NETWORK=192.168.50.0/24
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=1
+    ports:
+      - ${WEBUI_PORT_INTERNAL}:8112
+    volumes:
+      - nas-share-movies:/data/movies:rw
+      - nas-share-shows:/data/shows:rw

@@ -1,0 +1,10 @@
+version: "3.9"
+name: ${SERVICE_NAME:?err}
+services:
+  organizr:
+    extends:
+      file: ../../../proxied-service.docker-compose.yml
+      service: proxied
+    image: organizr/organizr
+    networks:
+      - media

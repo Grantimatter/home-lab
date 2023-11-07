@@ -3,7 +3,7 @@ name: ${SERVICE_NAME:?err}
 services:
   sonarr:
     extends:
-      file: ../proxied-media-service.yml
+      file: ../proxied-media-service.docker-compose.yml
       service: proxied-media
     image: lscr.io/linuxserver/sonarr:develop
     volumes:

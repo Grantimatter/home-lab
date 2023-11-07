@@ -3,7 +3,7 @@ name: ${SERVICE_NAME:?err}
 services:
   vaultwarden:
     extends:
-      file: ../../../proxied-service.yml
+      file: ../../../proxied-service.docker-compose.yml
       service: proxied
     image: vaultwarden/server:latest
     volumes:

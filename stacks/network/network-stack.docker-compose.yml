@@ -1,8 +1,8 @@
 version: "3.9"
 name: network-stack
 include:
-  - traefik/traefik-compose.yml
-  - adguard-home/adguard-home-compose.yml
+  - traefik/traefik.docker-compose.yml
+  - adguard-home/adguard-home.docker-compose.yml
 
 networks:
   proxy:

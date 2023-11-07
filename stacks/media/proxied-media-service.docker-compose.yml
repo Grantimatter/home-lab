@@ -1,0 +1,16 @@
+version: "3.9"
+name: ${SERVICE_NAME:?err}
+services:
+  proxied-media:
+    extends:
+      file: ../../proxied-service.docker-compose.yml
+      service: proxied
+    volumes:
+      - nas-share-downloads:/data/downloads:rw
+      - ../../config/${SERVICE_NAME:?err}:/config:rw
+    environment:
+      - UMASK=022
+      - PUID=1000
+      - PGID=1000
+    networks:
+      - media

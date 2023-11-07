@@ -3,11 +3,9 @@ name: ${SERVICE_NAME:?err}
 services:
   portainer:
     extends: 
-      file: ../../../proxied-service.yml
+      file: ../../../proxied-service.docker-compose.yml
       service: proxied
     image: portainer/portainer-ce:latest
-    ports:
-      - ${EXPOSED_PORT}:9443
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ../../../config/portainer:/data
+      - ../../../data/portainer:/data

@@ -1,0 +1,4 @@
+version: "3.9"
+name: security-stack
+include:
+  - vaultwarden/vaultwarden.docker-compose.yml
