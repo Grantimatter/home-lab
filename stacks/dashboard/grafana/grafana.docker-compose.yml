@@ -5,12 +5,12 @@ services:
     extends:
       file: ../../../proxied-service.docker-compose.yml
       service: proxied
-    image: grafana/grafana-oss
+    image: grafana/grafana-enterprise
+    user: '1000'
     environment:
-      - UMASK=022
       - PUID=1000
       - PGID=1000
     volumes:
-      - ../../../data/${SERVICE_NAME}:/var/lib/grafana
+      - ../../../data/${SERVICE_NAME}:/var/lib/grafana:rw
     networks:
       - media

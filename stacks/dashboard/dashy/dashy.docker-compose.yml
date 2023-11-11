@@ -1,0 +1,20 @@
+version: "3.9"
+name: ${SERVICE_NAME:?err}
+services:
+  dashy:
+    extends:
+      file: ../../../proxied-service.docker-compose.yml
+      service: proxied
+    image: lissy93/dashy
+    environment:
+      - NODE_ENV=production
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ../../../config/${SERVICE_NAME?:err}:/app/public/
+    healthcheck:
+      test: ['CMD', 'node', '/app/services/healthcheck']
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
