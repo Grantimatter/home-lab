@@ -6,3 +6,4 @@ include:
   - stacks/dashboard/dashboard-stack.docker-compose.yml
   - stacks/media/media-stack.docker-compose.yml
   - stacks/server-management/server-management-stack.docker-compose.yml
+  - stacks/home/home-stack.docker-compose.yml

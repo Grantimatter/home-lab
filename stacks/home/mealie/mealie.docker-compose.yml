@@ -1,0 +1,18 @@
+version: "3.9"
+name: ${SERVICE_NAME:?err}
+services:
+  mealie:
+    extends:
+      file: ../../../proxied-service.docker-compose.yml
+      service: proxied
+    image: ghcr.io/mealie-recipes/mealie:v1.0.0-RC1.1
+    user: 1000:1000
+    environment:
+      - ALLOW_SIGNUP=true
+      - PUID=1000
+      - PGID=1000
+      - MAX_WORKERS=1
+      - WEB_CONCURRENCY=1
+      - BASE_URL=https://${SERVICE_NAME}.${HOST_ADDRESS}
+    volumes:
+      - ../../../data/${SERVICE_NAME}:/app/data
