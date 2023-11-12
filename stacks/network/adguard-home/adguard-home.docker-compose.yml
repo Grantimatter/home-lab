@@ -20,8 +20,8 @@ services:
       - 3000:3000/tcp
       - 853:853/tcp
     volumes:
-      - ../../../config/${SERVICE_NAME}:/opt/adguardhome/conf
-      - ../../../data/${SERVICE_NAME}:/opt/adguardhome/work
+      - ${SERVER_CONFIG_DIR?:err}/${SERVICE_NAME}:/opt/adguardhome/conf
+      - ${SERVER_DATA_DIR?:err}/${SERVICE_NAME}:/opt/adguardhome/work
     networks:
       proxy:
         ipv4_address: 192.168.32.99

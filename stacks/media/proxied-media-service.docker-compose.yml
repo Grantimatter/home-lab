@@ -6,8 +6,7 @@ services:
       file: ../../proxied-service.docker-compose.yml
       service: proxied
     volumes:
-      - nas-share-downloads:/data/downloads:rw
-      - ../../config/${SERVICE_NAME:?err}:/config:rw
+      - ${SERVER_CONFIG_DIR?:err}/${SERVICE_NAME:?err}:/config:rw
     environment:
       - UMASK=022
       - PUID=1000

@@ -24,5 +24,4 @@ services:
     ports:
       - ${WEBUI_PORT_INTERNAL}:8112
     volumes:
-      - nas-share-movies:/data/movies:rw
-      - nas-share-shows:/data/shows:rw
+      - nas-share:/data/downloads

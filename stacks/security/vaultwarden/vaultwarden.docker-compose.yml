@@ -7,4 +7,4 @@ services:
       service: proxied
     image: vaultwarden/server:latest
     volumes:
-      - ../../../data/${SERVICE_NAME}:/data
+      - ${SERVER_DATA_DIR?:err}/${SERVICE_NAME}:/data

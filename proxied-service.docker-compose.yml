@@ -2,7 +2,7 @@ version: "3.9"
 name: ${SERVICE_NAME:?err}
 services:
   proxied:
-    container_name: ${SERVICE_NAME}
+    container_name: ${SERVICE_NAME:?err}
     restart: unless-stopped
     security_opt:
       - no-new-privileges:true
@@ -12,15 +12,21 @@ services:
       - /etc/localtime:/etc/localtime:ro
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.${SERVICE_NAME}.entrypoints=http"
-      - "traefik.http.routers.${SERVICE_NAME}.rule=Host(`${SERVICE_NAME}.${HOST_ADDRESS}`)"
+      - "traefik.http.routers.${SERVICE_NAME:?err}.entrypoints=http"
+      - "traefik.http.routers.${SERVICE_NAME:?err}.rule=Host(`${SERVICE_NAME:?err}.${HOST_ADDRESS:?err}`)"
       - "traefik.http.middlewares.${SERVICE_NAME}-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.routers.${SERVICE_NAME}.middlewares=${SERVICE_NAME}-https-redirect"
-      - "traefik.http.routers.${SERVICE_NAME}-secure.entrypoints=https"
-      - "traefik.http.routers.${SERVICE_NAME}-secure.rule=Host(`${SERVICE_NAME}.${HOST_ADDRESS}`)"
-      - "traefik.http.routers.${SERVICE_NAME}-secure.tls=true"
-      - "traefik.http.routers.${SERVICE_NAME}-secure.service=${SERVICE_NAME}"
-      - "traefik.http.services.${SERVICE_NAME}.loadbalancer.server.port=${WEBUI_PORT_INTERNAL:?err}"
+      - "traefik.http.routers.${SERVICE_NAME:?err}.middlewares=${SERVICE_NAME:?err}-https-redirect"
+      - "traefik.http.routers.${SERVICE_NAME:?err}-secure.entrypoints=https"
+      - "traefik.http.routers.${SERVICE_NAME:?err}-secure.rule=Host(`${SERVICE_NAME:?err}.${HOST_ADDRESS:?err}`)"
+      - "traefik.http.routers.${SERVICE_NAME:?err}-secure.tls=true"
+      - "traefik.http.routers.${SERVICE_NAME:?err}-secure.service=${SERVICE_NAME:?err}"
+      - "traefik.http.services.${SERVICE_NAME:?err}.loadbalancer.server.port=${WEBUI_PORT_INTERNAL:?err}"
       - "traefik.docker.network=proxy"
     networks:
       - proxy
+    depends_on:
+      - traefik
+
+networks:
+  proxy:
+    external: true

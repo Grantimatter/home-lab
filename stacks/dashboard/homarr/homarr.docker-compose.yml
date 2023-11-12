@@ -7,7 +7,7 @@ services:
       service: proxied
     image: ghcr.io/ajnart/homarr:latest
     volumes:
-      - ../../../config/${SERVICE_NAME:?err}:/app/data/configs
-      - ../../../data/${SERVICE_NAME:?err}:/app/public/icons
+      - ${SERVER_CONFIG_DIR?:err}/${SERVICE_NAME:?err}:/app/data/configs
+      - ${SERVER_DATA_DIR?:err}/${SERVICE_NAME:?err}:/app/public/icons
     networks:
       - media

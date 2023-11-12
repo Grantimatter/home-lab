@@ -8,4 +8,4 @@ services:
     image: portainer/portainer-ce:latest
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ../../../data/portainer:/data
+      - ${SERVER_DATA_DIR?:err}/${SERVICE_NAME}:/data

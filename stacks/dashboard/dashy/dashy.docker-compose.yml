@@ -11,7 +11,7 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - ../../../config/${SERVICE_NAME?:err}:/app/public/
+      - ${SERVER_CONFIG_DIR?:err}/${SERVICE_NAME?:err}:/app/public/
     healthcheck:
       test: ['CMD', 'node', '/app/services/healthcheck']
       interval: 1m30s

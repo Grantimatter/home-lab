@@ -15,4 +15,4 @@ services:
       - WEB_CONCURRENCY=1
       - BASE_URL=https://${SERVICE_NAME}.${HOST_ADDRESS}
     volumes:
-      - ../../../data/${SERVICE_NAME}:/app/data
+      - ${SERVER_DATA_DIR?:err}/${SERVICE_NAME}:/app/data

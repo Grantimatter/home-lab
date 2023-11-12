@@ -1,0 +1,4 @@
+version: "3.9"
+name: gaming-stack
+include:
+  - pterodactyl/pterodactyl.docker-compose.yml

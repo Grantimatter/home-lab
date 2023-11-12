@@ -10,22 +10,12 @@ include:
   - plex/plex.docker-compose.yml
 
 volumes:
-  nas-share-downloads:
-    name: nas-share-downloads
+  nas-share:
+    name: nas-share
     driver_opts: &driver-default
       type: cifs
       o: username=${NET_USER?err},password=${NET_USER_PASSWORD?err},rw,uid=1000,gid=1000
-      device: ${NAS_MACHINE:?err}/downloads
-  nas-share-movies:
-    name: nas-share-movies
-    driver_opts:
-      <<: *driver-default
-      device: ${NAS_MACHINE:?err}/movies
-  nas-share-shows:
-    name: nas-share-shows
-    driver_opts:
-      <<: *driver-default
-      device: ${NAS_MACHINE:?err}/shows
+      device: ${NAS_MACHINE:?err}
   nas-share-library:
     name: nas-share-library
     driver_opts:

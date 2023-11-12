@@ -16,8 +16,7 @@ services:
     ports:
       - ${WEBUI_PORT_EXTERNAL}:32400/tcp
     volumes:
-      - nas-share-movies:/data/movies
-      - nas-share-shows:/data/shows
+      - nas-share:/data
       - nas-share-library:/config
     networks:
       proxy:
