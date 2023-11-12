@@ -1,0 +1,9 @@
+version: "3.9"
+name: database-stack
+include:
+  - redis/redis.docker-compose.yml
+  - mariadb/mariadb.docker-compose.yml
+
+networks:
+  database:
+    name: database

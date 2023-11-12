@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+  duplicati:
+    extends:
+      file: ../../../proxied-service.docker-compose.yml
+      service: proxied
+    image: lscr.io/linuxserver/duplicati:latest
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - ${SERVER_CONFIG_DIR?:err}/${SERVICE_NAME}:/config
+      - ${SERVER_CONFIG_DIR?:err}:/source/config
+      - ${SERVER_DATA_DIR?:err}:/source/data

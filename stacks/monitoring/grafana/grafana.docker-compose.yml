@@ -11,6 +11,6 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - ../../../data/${SERVICE_NAME}:/var/lib/grafana:rw
+      - ${SERVER_DATA_DIR?:err}/${SERVICE_NAME}:/var/lib/grafana:rw
     networks:
       - media

@@ -4,4 +4,3 @@ include:
   - homarr/homarr.docker-compose.yml
   - dashdot/dashdot.docker-compose.yml
   - dashy/dashy.docker-compose.yml
-  - grafana/grafana.docker-compose.yml

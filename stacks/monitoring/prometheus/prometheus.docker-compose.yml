@@ -1,0 +1,13 @@
+version: "3.9"
+services:
+  prometheus:
+    extends:
+      file: ../../../proxied-service.docker-compose.yml
+      service: proxied
+    image: prom/prometheus:latest
+    command:
+    - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+    - ${SERVER_CONFIG_DIR:?err}/${SERVICE_NAME?:err}/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+    - cadvisor
