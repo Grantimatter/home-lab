@@ -14,3 +14,5 @@ services:
     - /var/lib/docker/:/var/lib/docker:ro
     depends_on:
     - redis
+    networks:
+      - monitoring

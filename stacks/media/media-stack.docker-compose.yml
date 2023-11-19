@@ -15,12 +15,17 @@ volumes:
     driver_opts: &driver-default
       type: cifs
       o: username=${NET_USER?err},password=${NET_USER_PASSWORD?err},rw,uid=1000,gid=1000
-      device: ${NAS_MACHINE:?err}
+      device: ${NAS_MACHINE:?err}/Server
+  nas-share-media-extra:
+    name: nas-share-media-extra
+    driver_opts:
+      <<: *driver-default
+      device: ${NAS_MACHINE:?err}/Media-Extra
   nas-share-library:
     name: nas-share-library
     driver_opts:
       <<: *driver-default
-      device: ${NAS_MACHINE:?err}/plex-library
+      device: ${NAS_MACHINE:?err}/Server/Plex-Library
 
 networks:
   media:

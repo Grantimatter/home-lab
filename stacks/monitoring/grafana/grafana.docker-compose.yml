@@ -13,4 +13,4 @@ services:
     volumes:
       - ${SERVER_DATA_DIR?:err}/${SERVICE_NAME}:/var/lib/grafana:rw
     networks:
-      - media
+      - monitoring

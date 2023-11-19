@@ -12,11 +12,12 @@ services:
       - VERSION=docker
       - HOSTNAME=${HOST_NAME:?err}
       - ADVERTISE_IP=https://${SERVICE_NAME}.${HOST_ADDRESS}
-      - PLEX_CLAIM=${PLEX_CLAIM-}
+      - PLEX_CLAIM=${PLEX_CLAIM}
     ports:
       - ${WEBUI_PORT_EXTERNAL}:32400/tcp
     volumes:
       - nas-share:/data
+      - nas-share-media-extra:/media-extra
       - nas-share-library:/config
     networks:
       proxy:

@@ -24,4 +24,4 @@ services:
     ports:
       - ${WEBUI_PORT_INTERNAL}:8112
     volumes:
-      - nas-share:/data/downloads
+      - nas-share:/data

@@ -4,3 +4,8 @@ include:
   - prometheus/prometheus.docker-compose.yml
   - cadvisor/cadvisor.docker-compose.yml
   - grafana/grafana.docker-compose.yml
+  - node-exporter/node-exporter.docker-compose.yml
+
+networks:
+  monitoring:
+    name: monitoring
