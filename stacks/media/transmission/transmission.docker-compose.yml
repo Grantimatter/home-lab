@@ -1,0 +1,15 @@
+version: "3.9"
+name: ${SERVICE_NAME:?err}
+services:
+  transmission:
+    extends:
+      file: ../../home-lab/stacks/media/proxied-media-service.yml
+      service: proxied-media
+    image: lscr.io/linuxserver/transmission:latest
+    environment:
+      - USER=${TRANSMISSION_USER}
+      - PASS=${TRANSMISSION_PASS}
+    volumes:
+      - nas-share-movies:/data/movies:rw
+      - nas-share-shows:/data/shows:rw
+      - nas-share-sites:/data/sites:rw

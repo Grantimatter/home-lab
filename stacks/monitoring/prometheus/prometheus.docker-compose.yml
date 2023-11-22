@@ -5,7 +5,6 @@ services:
       file: ../../../proxied-service.docker-compose.yml
       service: proxied
     image: prom/prometheus:latest
-    privileged: true
     command:
       - --config.file=/etc/prometheus/prometheus.yml
       # - '--storage.tsdb.path=/prometheus'

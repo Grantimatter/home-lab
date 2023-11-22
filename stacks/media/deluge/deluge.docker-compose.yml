@@ -25,3 +25,17 @@ services:
       - ${WEBUI_PORT_INTERNAL}:8112
     volumes:
       - nas-share:/data
+
+  deluge-exporter:
+    container_name: deluge-exporter
+    image: tobbez/deluge_exporter:latest
+    environment:
+      - DELUGE_HOST=deluge
+      - DELUGE_PORT=58846
+      - DELUGE_USER=exporter
+      - DELUGE_PASSWORD=${DELUGE_PASSWORD?:err}
+    volumes:
+      - ${SERVER_CONFIG_DIR?:err}/${SERVICE_NAME}:/root/.config/deluge/
+    networks:
+      - media
+      - monitoring
