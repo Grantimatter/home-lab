@@ -3,22 +3,28 @@ name: ${SERVICE_NAME:?err}
 services:
   plex:
     extends:
-      file: ../proxied-media-service.docker-compose.yml
-      service: proxied-media
+      file: ${SERVER_DIR}/proxied-service.docker-compose.yml
+      service: proxied
     container_name: ${SERVICE_NAME:?err}
     image: lscr.io/linuxserver/plex:latest
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
     restart: unless-stopped
+    network_mode: host
     environment:
       - VERSION=docker
-      - HOSTNAME=${HOST_NAME:?err}
-      - ADVERTISE_IP=https://${SERVICE_NAME}.${HOST_ADDRESS}
+      - PLEX_UID=1000
+      - PLEX_GID=1000
+      - UMASK=022
       - PLEX_CLAIM=${PLEX_CLAIM}
-    ports:
-      - ${WEBUI_PORT_EXTERNAL}:32400/tcp
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=compute,video,utility
     volumes:
-      - nas-share:/data
-      - nas-share-media-extra:/media-extra
-      - nas-share-library:/config
-    networks:
-      proxy:
-        ipv4_address: 192.168.32.15
+      - nas-share:/data:rw
+      - ${SERVER_CONFIG_DIR?:err}/${SERVICE_NAME}:/config:rw
+      - nas-share-media-extra:/media-extra:rw

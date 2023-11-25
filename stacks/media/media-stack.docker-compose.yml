@@ -21,11 +21,6 @@ volumes:
     driver_opts:
       <<: *driver-default
       device: ${NAS_MACHINE:?err}/Media-Extra
-  nas-share-library:
-    name: nas-share-library
-    driver_opts:
-      <<: *driver-default
-      device: ${NAS_MACHINE:?err}/Server/Plex-Library
 
 networks:
   media:
