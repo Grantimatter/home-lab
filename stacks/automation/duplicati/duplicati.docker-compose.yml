@@ -12,3 +12,4 @@ services:
       - ${SERVER_CONFIG_DIR?:err}/${SERVICE_NAME}:/config
       - ${SERVER_CONFIG_DIR?:err}:/source/config
       - ${SERVER_DATA_DIR?:err}:/source/data
+      - ${SERVER_DIR?:err}/backups:/backups

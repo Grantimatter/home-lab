@@ -8,6 +8,7 @@ services:
     image: ghcr.io/ajnart/homarr:latest
     volumes:
       - ${SERVER_CONFIG_DIR?:err}/${SERVICE_NAME:?err}:/app/data/configs
+      - ${SERVER_DATA_DIR?:err}/${SERVICE_NAME:?err}:/data
       - ${SERVER_DATA_DIR?:err}/${SERVICE_NAME:?err}:/app/public/icons
     networks:
       - media
