@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  homeassisstant:
+    extends:
+      file: ${SERVER_DIR}/proxied-service.docker-compose.yml
+      service: proxied
+    image: lscr.io/linuxserver/homeassistant:latest
+    network_mode: host
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=US/Central
+    volumes:
+      - ${SERVER_CONFIG_DIR:?err}/${SERVICE_NAME}:/config

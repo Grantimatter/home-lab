@@ -38,3 +38,5 @@ services:
       - "traefik.http.routers.traefik-secure.tls.domains[0].main=${HOST_ADDRESS}"
       - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.${HOST_ADDRESS}"
       - "traefik.http.routers.traefik-secure.service=api@internal"
+    extra_hosts: 
+      - host.docker.internal:172.17.0.1

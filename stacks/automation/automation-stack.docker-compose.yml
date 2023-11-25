@@ -2,3 +2,4 @@ version: "3.9"
 name: dashboard-stack
 include:
   - duplicati/duplicati.docker-compose.yml
+  - homeassisstant/homeassisstant.docker-compose.yml
