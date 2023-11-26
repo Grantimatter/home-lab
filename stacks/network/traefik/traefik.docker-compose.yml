@@ -12,6 +12,7 @@ services:
     ports:
       - 80:80
       - 443:443
+      - 2456:2456/udp
     environment:
       - CF_API_EMAIL=${DNS_EMAIL:?err}
       - CF_DNS_API_TOKEN=${CF_API_TOKEN:?err}

@@ -4,26 +4,27 @@ services:
   wings:
     image: ghcr.io/pterodactyl/wings:latest
     restart: always
+    extends:
+      file: ${SERVER_DIR}/proxied-service.docker-compose.yml
+      service: proxied
     networks:
       - wings0
-    ports:
-      - "8080:8080"
-      - "2022:2022"
-      - "443:443"
+      - proxy
     tty: true
     environment:
-      TZ: "UTC"
+      TZ: "US/Central"
       WINGS_UID: 988
       WINGS_GID: 988
       WINGS_USERNAME: pterodactyl
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "/var/lib/docker/containers/:/var/lib/docker/containers/"
-      - "/etc/pterodactyl/:/etc/pterodactyl/"
-      - "/var/lib/pterodactyl/:/var/lib/pterodactyl/"
-      - "/var/log/pterodactyl/:/var/log/pterodactyl/"
-      - "/tmp/pterodactyl/:/tmp/pterodactyl/"
+      - "${SERVER_CONFIG_DIR:?err}/pterodactyl/:/etc/pterodactyl/"
+      - "${SERVER_DATA_DIR:?err}/pterodactyl/:/var/lib/pterodactyl/"
+      - "${SERVER_DATA_DIR:?err}/pterodactyl/log/:/var/log/pterodactyl/"
+      - "${SERVER_DATA_DIR:?err}/pterodactyl/tmp:/tmp/pterodactyl/"
       - "/etc/ssl/certs:/etc/ssl/certs:ro"
+      - ""
       # you may need /srv/daemon-data if you are upgrading from an old daemon
       #- "/srv/daemon-data/:/srv/daemon-data/"
       # Required for ssl if you use let's encrypt. uncomment to use.

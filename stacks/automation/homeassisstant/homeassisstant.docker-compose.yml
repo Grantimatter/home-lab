@@ -2,8 +2,8 @@ version: "3.9"
 services:
   homeassisstant:
     extends:
-      file: ${SERVER_DIR}/proxied-service.docker-compose.yml
-      service: proxied
+      file: ${SERVER_DIR}/proxied-host-service.docker-compose.yml
+      service: proxied-host
     image: lscr.io/linuxserver/homeassistant:latest
     network_mode: host
     security_opt:

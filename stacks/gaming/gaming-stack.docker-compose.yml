@@ -1,4 +1,5 @@
 version: "3.9"
 name: gaming-stack
-#include:
- # - pterodactyl/pterodactyl.docker-compose.yml
+include:
+  #- pterodactyl/pterodactyl.docker-compose.yml
+  - servers/valheim/valheim.docker-compose.yml

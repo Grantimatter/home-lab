@@ -3,7 +3,7 @@ name: ${SERVICE_NAME:?err}
 services:
   mealie:
     extends:
-      file: ../../../proxied-service.docker-compose.yml
+      file: ${SERVER_DIR}/proxied-service.docker-compose.yml
       service: proxied
     image: ghcr.io/mealie-recipes/mealie:v1.0.0-RC1.1
     user: 1000:1000

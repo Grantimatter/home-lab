@@ -1,7 +1,7 @@
 version: "3.9"
 name: ${SERVICE_NAME:?err}
 services:
-  proxied:
+  proxied-host:
     container_name: ${SERVICE_NAME:?err}
     restart: unless-stopped
     security_opt:
@@ -26,8 +26,6 @@ services:
       - "traefik.docker.network=proxy"
     depends_on:
       - traefik
-    networks:
-      - proxy
 
 networks:
   proxy:

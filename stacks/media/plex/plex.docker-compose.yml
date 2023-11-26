@@ -3,8 +3,8 @@ name: ${SERVICE_NAME:?err}
 services:
   plex:
     extends:
-      file: ${SERVER_DIR}/proxied-service.docker-compose.yml
-      service: proxied
+      file: ${SERVER_DIR}/proxied-host-service.docker-compose.yml
+      service: proxied-host
     container_name: ${SERVICE_NAME:?err}
     image: lscr.io/linuxserver/plex:latest
     deploy:

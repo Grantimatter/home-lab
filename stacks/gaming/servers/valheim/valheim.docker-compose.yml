@@ -1,0 +1,28 @@
+version: "3.9"
+name: ${SERVICE_NAME:?err}
+services:
+  valheim:
+    container_name: ${SERVICE_NAME:?err}
+    image: lloesche/valheim-server
+    environment:
+      - TZ=US/Central
+      - SERVER_NAME=${SERVICE_NAME:?err}
+      - WORLD_NAME=Llama
+      - SERVER_PASS=
+      - SERVER_PUBLIC=false
+      - UPDATE_IF_IDLE=true
+      - BACKUPS=true
+      - BEPINEX=true
+      - BACKUPS_DIRECTORY=/data/backups
+    volumes:
+      - ${SERVER_CONFIG_DIR:?err}/${SERVICE_NAME:?err}/config:/config
+      - ${SERVER_DATA_DIR:?err}/${SERVICE_NAME:?err}/backups:/data/backups
+      - ${SERVER_DATA_DIR:?err}/${SERVICE_NAME:?err}:/opt/valheim
+    labels:
+      - "traefik.enable=true"
+      - "traefik.${PROTOCOL:?err}.routers.${SERVICE_NAME:?err}.entrypoints=${SERVICE_NAME:?err}-${PROTOCOL:?err}"
+      - "traefik.${PROTOCOL:?err}.routers.${SERVICE_NAME:?err}.service=${SERVICE_NAME:?err}"
+      - "traefik.${PROTOCOL:?err}.services.${SERVICE_NAME}.loadbalancer.server.port=${LOADBALANCE_PORT:?err}"
+      - "traefik.docker.network=proxy"
+    networks:
+      - proxy

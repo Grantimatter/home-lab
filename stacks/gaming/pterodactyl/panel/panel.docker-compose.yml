@@ -11,9 +11,9 @@ x-common:
     # This URL should be the URL that your reverse proxy routes to the panel server
     APP_URL: "https://${SERVICE_NAME}.${HOST_ADDRESS}"
     # A list of valid timezones can be found here: http://php.net/manual/en/timezones.php
-    APP_TIMEZONE: "UTC"
+    APP_TIMEZONE: "US/Central"
     APP_SERVICE_AUTHOR: "noreply@example.com"
-    TRUSTED_PROXIES: "*" # Set this to your proxy IP
+    TRUSTED_PROXIES: "192.168.32.0/16" # Set this to your proxy IP
     # Uncomment the line below and set to a non-empty value if you want to use Let's Encrypt
     # to generate an SSL certificate for the Panel.
     # LE_EMAIL: ""
@@ -38,18 +38,18 @@ services:
   panel:
     image: ghcr.io/pterodactyl/panel:latest
     restart: always
-    ports:
-      - "80:80"
-      - "443:443"
+    extends:
+      file: ${SERVER_DIR}/proxied-service.docker-compose.yml
+      service: proxied
     links:
       - mariadb
       - mariadb:database
       - redis
     volumes:
-      - "/srv/pterodactyl/var/:/app/var/"
-      - "/srv/pterodactyl/nginx/:/etc/nginx/http.d/"
-      - "/srv/pterodactyl/certs/:/etc/letsencrypt/"
-      - "/srv/pterodactyl/logs/:/app/storage/logs"
+      - "${SERVER_CONFIG_DIR:?err}/pterodactyl/var/:/app/var/"
+      - "${SERVER_CONFIG_DIR:?err}/pterodactyl/nginx/:/etc/nginx/http.d/"
+      - "${SERVER_DATA_DIR:?err}/pterodactyl/certs/:/etc/letsencrypt/"
+      - "${SERVER_DATA_DIR:?err}/pterodactyl/logs/:/app/storage/logs"
     environment:
       <<: [*panel-environment, *mail-environment]
       DB_PASSWORD: *db-password
