@@ -6,6 +6,8 @@ services:
     image: lloesche/valheim-server
     environment:
       - TZ=US/Central
+      - PUID=1000
+      - PGID=1000
       - SERVER_NAME=${SERVICE_NAME:?err}
       - WORLD_NAME=Llama
       - SERVER_PASS=
@@ -15,7 +17,7 @@ services:
       - BEPINEX=true
       - BACKUPS_DIRECTORY=/data/backups
     volumes:
-      - ${SERVER_CONFIG_DIR:?err}/${SERVICE_NAME:?err}/config:/config
+      - ${SERVER_CONFIG_DIR:?err}/${SERVICE_NAME:?err}:/config
       - ${SERVER_DATA_DIR:?err}/${SERVICE_NAME:?err}/backups:/data/backups
       - ${SERVER_DATA_DIR:?err}/${SERVICE_NAME:?err}:/opt/valheim
     labels:

@@ -3,7 +3,7 @@ name: ${SERVICE_NAME:?err}
 services:
   cadvisor:
     extends:
-      file: ../../../proxied-service.docker-compose.yml
+      file: ${SERVER_DIR}/proxied-service.docker-compose.yml
       service: proxied
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: ${SERVICE_NAME:?err}

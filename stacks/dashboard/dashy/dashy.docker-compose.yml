@@ -3,7 +3,7 @@ name: ${SERVICE_NAME:?err}
 services:
   dashy:
     extends:
-      file: ../../../proxied-service.docker-compose.yml
+      file: ${SERVER_DIR}/proxied-service.docker-compose.yml
       service: proxied
     image: lissy93/dashy
     environment:

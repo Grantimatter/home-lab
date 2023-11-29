@@ -2,7 +2,7 @@ version: "3.9"
 services:
   duplicati:
     extends:
-      file: ../../../proxied-service.docker-compose.yml
+      file: ${SERVER_DIR}/proxied-service.docker-compose.yml
       service: proxied
     image: lscr.io/linuxserver/duplicati:latest
     environment:

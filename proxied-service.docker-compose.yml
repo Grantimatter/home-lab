@@ -24,10 +24,10 @@ services:
       - "traefik.http.routers.${SERVICE_NAME:?err}-secure.service=${SERVICE_NAME:?err}"
       - "traefik.http.services.${SERVICE_NAME:?err}.loadbalancer.server.port=${LOADBALANCE_PORT:?err}"
       - "traefik.docker.network=proxy"
-    depends_on:
-      - traefik
     networks:
       - proxy
+    external_links:
+      - traefik
 
 networks:
   proxy:

@@ -11,5 +11,7 @@ services:
     environment:
       MYSQL_DATABASE: "panel"
       MYSQL_USER: "grantimatter"
+      PUID: 1000
+      PGID: 1000
     networks:
       - database

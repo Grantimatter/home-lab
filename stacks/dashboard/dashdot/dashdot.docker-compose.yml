@@ -3,7 +3,7 @@ name: ${SERVICE_NAME:?err}
 services:
   dashdot:
     extends:
-      file: ../../../proxied-service.docker-compose.yml
+      file: ${SERVER_DIR}/proxied-service.docker-compose.yml
       service: proxied
     image: mauricenino/dashdot:latest
     privileged: true

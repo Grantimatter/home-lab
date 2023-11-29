@@ -3,7 +3,7 @@ name: ${SERVICE_NAME:?err}
 services:
   adguard-home:
     extends:
-      file: ../../../proxied-service.docker-compose.yml
+      file: ${SERVER_DIR}/proxied-service.docker-compose.yml
       service: proxied
     container_name: ${SERVICE_NAME:?err}
     image: adguard/adguardhome

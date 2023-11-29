@@ -3,7 +3,7 @@ name: ${SERVICE_NAME:?err}
 services:
   proxied-media:
     extends:
-      file: ../../proxied-service.docker-compose.yml
+      file: ${SERVER_DIR}/proxied-service.docker-compose.yml
       service: proxied
     volumes:
       - ${SERVER_CONFIG_DIR?:err}/${SERVICE_NAME:?err}:/config:rw
