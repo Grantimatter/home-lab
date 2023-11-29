@@ -1,0 +1,17 @@
+version: "3.3"
+services:
+  rancher:
+    extends:
+      file: ${SERVER_DIR}/proxied-service.docker-compose.yml
+      service: proxied
+    restart: unless-stopped
+    privileged: true
+    image: rancher/rancher:latest
+    command: --no-cacerts
+    # external_links:
+    #   - traefik
+
+networks:
+  proxy:
+    name: proxy
+    external: true
