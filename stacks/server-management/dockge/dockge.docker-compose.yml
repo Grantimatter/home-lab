@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  dockge:
+    image: louislam/dockge:1
+    extends: 
+      file: ${SERVER_DIR}/proxied-service.docker-compose.yml
+      service: proxied
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${SERVER_DATA_DIR}/${SERVICE_NAME}:/app/data
+      # ⚠️ Left Stacks Path === Right Stacks Path (MUST)
+      - ${SERVER_DIR}/stacks:/opt/stacks
+    environment:
+      # Tell Dockge where to find the stacks
+      - DOCKGE_STACKS_DIR=/opt/stacks
+      - UMASK=022
+      - PUID=1000
+      - PGID=1000
