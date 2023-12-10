@@ -3,7 +3,7 @@ services:
   terraria:
     image: ryshe/terraria:latest
     container_name: terraria
-    command: -world /root/.local/share/Terraria/Worlds/master.wld -autocreate 3
+    command: -world /root/.local/share/Terraria/Worlds/Master_Of_Llama.wld -autocreate 3
     extends:
       file: ../game-server.docker-compose.yml
       service: game-server
