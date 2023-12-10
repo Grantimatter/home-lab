@@ -1,15 +1,17 @@
-version: '3.8'
-
+version: "3.9"
 services:
-  wings:
+  pterodactyl-wings:
     image: ghcr.io/pterodactyl/wings:latest
-    restart: always
     extends:
       file: ${SERVER_DIR}/proxied-service.docker-compose.yml
       service: proxied
+    container_name: pterodactyl-wings
+    restart: unless-stopped
     networks:
       - wings0
-      - proxy
+    ports:
+      - "8080:8080"
+      - "2022:2022"
     tty: true
     environment:
       TZ: "US/Central"
@@ -19,16 +21,16 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "/var/lib/docker/containers/:/var/lib/docker/containers/"
-      - "${SERVER_CONFIG_DIR:?err}/pterodactyl/:/etc/pterodactyl/"
-      - "${SERVER_DATA_DIR:?err}/pterodactyl/:/var/lib/pterodactyl/"
-      - "${SERVER_DATA_DIR:?err}/pterodactyl/log/:/var/log/pterodactyl/"
-      - "${SERVER_DATA_DIR:?err}/pterodactyl/tmp:/tmp/pterodactyl/"
+      - "${SERVER_CONFIG_DIR}/pterodactyl/wings:/etc/pterodactyl/"
+      - "${SERVER_DATA_DIR}/pterodactyl/wings/lib:/var/lib/pterodactyl/"
+      - "${SERVER_DATA_DIR}/pterodactyl/wings/log:/var/log/pterodactyl/"
+      - "${SERVER_DATA_DIR}/pterodactyl/tmp:/tmp/pterodactyl/"
       - "/etc/ssl/certs:/etc/ssl/certs:ro"
-      - ""
       # you may need /srv/daemon-data if you are upgrading from an old daemon
       #- "/srv/daemon-data/:/srv/daemon-data/"
       # Required for ssl if you use let's encrypt. uncomment to use.
       #- "/etc/letsencrypt/:/etc/letsencrypt/"
+
 networks:
   wings0:
     name: wings0

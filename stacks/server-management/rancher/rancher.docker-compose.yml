@@ -8,10 +8,5 @@ services:
     privileged: true
     image: rancher/rancher:latest
     command: --no-cacerts
-    # external_links:
-    #   - traefik
-
-networks:
-  proxy:
-    name: proxy
-    external: true
+    volumes:
+      - ${SERVER_CONFIG_DIR:?err}/${SERVICE_NAME:?err}:/var/lib/rancher

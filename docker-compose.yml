@@ -10,4 +10,4 @@ include:
   - stacks/home/home-stack.docker-compose.yml
   - stacks/automation/automation-stack.docker-compose.yml
   - stacks/monitoring/monitoring-stack.docker-compose.yml
-  - stacks/gaming/gaming-stack.docker-compose.yml
+  #- stacks/gaming/gaming-stack.docker-compose.yml

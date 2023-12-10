@@ -1,25 +1,23 @@
-version: '3.8'
+version: "3.9"
 x-common:
-  database:
+  pterodactyl-database:
     &db-environment
     # Do not remove the "&db-password" from the end of the line below, it is important
     # for Panel functionality.
-    MYSQL_PASSWORD: &db-password ${MYSQL_PASSWORD?:err}
-    MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD?:err}
-  panel:
+    MYSQL_PASSWORD: &db-password "${DB_PASSWORD?:err}"
+    MYSQL_ROOT_PASSWORD: "${DB_PASSWORD?:err}"
+  pterodactyl-panel:
     &panel-environment
-    # This URL should be the URL that your reverse proxy routes to the panel server
-    APP_URL: "https://${SERVICE_NAME}.${HOST_ADDRESS}"
+    APP_URL: "https://pterodactyl.lab.wiswellgrant.com"
     # A list of valid timezones can be found here: http://php.net/manual/en/timezones.php
     APP_TIMEZONE: "US/Central"
-    APP_SERVICE_AUTHOR: "noreply@example.com"
-    TRUSTED_PROXIES: "192.168.32.0/16" # Set this to your proxy IP
+    APP_SERVICE_AUTHOR: "wiswellgrant@gmail.com"
     # Uncomment the line below and set to a non-empty value if you want to use Let's Encrypt
     # to generate an SSL certificate for the Panel.
     # LE_EMAIL: ""
   mail:
     &mail-environment
-    MAIL_FROM: "noreply@example.com"
+    MAIL_FROM: "wiswellgrant@gmail.com"
     MAIL_DRIVER: "smtp"
     MAIL_HOST: "mail"
     MAIL_PORT: "1025"
@@ -35,21 +33,41 @@ x-common:
 # below if you understand what you are doing.
 #
 services:
-  panel:
+  pterodactyl-database:
+    image: mariadb:10.5
+    container_name: pterodactyl-database
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - "${SERVER_DATA_DIR?:err}/${SERVICE_NAME?:err}/database:/var/lib/mysql"
+    environment:
+      <<: *db-environment
+      MYSQL_DATABASE: "panel"
+      MYSQL_USER: "pterodactyl"
+    networks:
+      - pterodactyl
+  pterodactyl-cache:
+    image: redis:alpine
+    container_name: pterodactyl-cache
+    restart: unless-stopped
+    networks:
+      - pterodactyl
+  pterodactyl-panel:
     image: ghcr.io/pterodactyl/panel:latest
-    restart: always
+    container_name: pterodactyl-panel
     extends:
       file: ${SERVER_DIR}/proxied-service.docker-compose.yml
       service: proxied
     links:
-      - mariadb
-      - mariadb:database
-      - redis
+      - pterodactyl-database
+      - pterodactyl-cache
     volumes:
-      - "${SERVER_CONFIG_DIR:?err}/pterodactyl/var/:/app/var/"
-      - "${SERVER_CONFIG_DIR:?err}/pterodactyl/nginx/:/etc/nginx/http.d/"
-      - "${SERVER_DATA_DIR:?err}/pterodactyl/certs/:/etc/letsencrypt/"
-      - "${SERVER_DATA_DIR:?err}/pterodactyl/logs/:/app/storage/logs"
+      - "${SERVER_DATA_DIR?:err}/${SERVICE_NAME?:err}/var/:/app/var/"
+      - "${SERVER_DATA_DIR?:err}/${SERVICE_NAME?:err}/nginx/:/etc/nginx/http.d/"
+      - "${SERVER_DATA_DIR?:err}/${SERVICE_NAME?:err}/certs/:/etc/letsencrypt/"
+      - "${SERVER_DATA_DIR?:err}/${SERVICE_NAME?:err}/logs/:/app/storage/logs"
+    networks:
+      - pterodactyl
     environment:
       <<: [*panel-environment, *mail-environment]
       DB_PASSWORD: *db-password
@@ -58,11 +76,10 @@ services:
       CACHE_DRIVER: "redis"
       SESSION_DRIVER: "redis"
       QUEUE_DRIVER: "redis"
-      REDIS_HOST: "cache"
-      DB_HOST: "mariadb"
+      REDIS_HOST: "pterodactyl-cache"
+      DB_HOST: "pterodactyl-database"
       DB_PORT: "3306"
+
 networks:
-  default:
-    ipam:
-      config:
-        - subnet: 172.20.0.0/16
+  pterodactyl:
+    name: pterodactyl

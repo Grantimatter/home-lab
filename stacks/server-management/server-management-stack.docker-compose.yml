@@ -1,4 +1,5 @@
 version: "3.9"
 include:
-  #- portainer/portainer.docker-compose.yml
-  - dockge/dockge.docker-compose.yml
+  - portainer/portainer.docker-compose.yml
+  #- dockge/dockge.docker-compose.yml
+  #- rancher/rancher.docker-compose.yml

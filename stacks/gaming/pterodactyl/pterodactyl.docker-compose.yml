@@ -1,5 +1,4 @@
 version: "3.9"
-name: pterodactyl
 include:
   - panel/panel.docker-compose.yml
   - wings/wings.docker-compose.yml

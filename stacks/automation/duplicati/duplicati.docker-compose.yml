@@ -5,9 +5,6 @@ services:
       file: ${SERVER_DIR}/proxied-service.docker-compose.yml
       service: proxied
     image: lscr.io/linuxserver/duplicati:latest
-    environment:
-      - PUID=1000
-      - PGID=1000
     volumes:
       - ${SERVER_CONFIG_DIR?:err}/${SERVICE_NAME}:/config
       - ${SERVER_CONFIG_DIR?:err}:/source/config

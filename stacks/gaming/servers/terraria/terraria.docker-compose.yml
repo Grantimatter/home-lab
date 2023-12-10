@@ -1,0 +1,15 @@
+#7777:7777
+#-v $HOME/terraria/world:/root/.local/share/Terraria/Worlds 
+#--name="terraria" 
+#-e WORLD_FILENAME=<.wld world_filename_here>
+# ryshe/terraria:latest
+version: "3.9"
+services:
+  terraria:
+    image: ryshe/terraria:latest
+    container_name: terraria
+    extends:
+      file: ../game-server.docker-compose.yml
+      service: game-server
+    volumes:
+      - ${SERVER_DATA_DIR}/${SERVICE_NAME}:/root/.local/share/Terraria/Worlds

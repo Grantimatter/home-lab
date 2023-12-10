@@ -1,0 +1,17 @@
+version: "3.9"
+name: ${SERVICE_NAME:?err}
+services:
+  game-server:
+    container_name: ${SERVICE_NAME:?err}
+    environment:
+      - TZ=US/Central
+      - PUID=1000
+      - PGID=1000
+    labels:
+      - "traefik.enable=true"
+      - "traefik.${PROTOCOL:?err}.routers.${SERVICE_NAME:?err}.entrypoints=${SERVICE_NAME:?err}-${PROTOCOL:?err}"
+      - "traefik.${PROTOCOL:?err}.routers.${SERVICE_NAME:?err}.service=${SERVICE_NAME:?err}"
+      - "traefik.${PROTOCOL:?err}.services.${SERVICE_NAME}.loadbalancer.server.port=${LOADBALANCE_PORT:?err}"
+      - "traefik.docker.network=proxy"
+    networks:
+      - proxy

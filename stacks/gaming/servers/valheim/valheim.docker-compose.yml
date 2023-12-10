@@ -4,6 +4,9 @@ services:
   valheim:
     container_name: ${SERVICE_NAME:?err}
     image: lloesche/valheim-server
+    extends:
+      file: ../game-server.docker-compose.yml
+      service: game-server
     environment:
       - TZ=US/Central
       - PUID=1000
@@ -20,11 +23,5 @@ services:
       - ${SERVER_CONFIG_DIR:?err}/${SERVICE_NAME:?err}:/config
       - ${SERVER_DATA_DIR:?err}/${SERVICE_NAME:?err}/backups:/data/backups
       - ${SERVER_DATA_DIR:?err}/${SERVICE_NAME:?err}:/opt/valheim
-    labels:
-      - "traefik.enable=true"
-      - "traefik.${PROTOCOL:?err}.routers.${SERVICE_NAME:?err}.entrypoints=${SERVICE_NAME:?err}-${PROTOCOL:?err}"
-      - "traefik.${PROTOCOL:?err}.routers.${SERVICE_NAME:?err}.service=${SERVICE_NAME:?err}"
-      - "traefik.${PROTOCOL:?err}.services.${SERVICE_NAME}.loadbalancer.server.port=${LOADBALANCE_PORT:?err}"
-      - "traefik.docker.network=proxy"
     networks:
       - proxy

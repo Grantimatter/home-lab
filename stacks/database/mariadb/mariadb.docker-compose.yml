@@ -10,7 +10,11 @@ services:
       - "${SERVER_DATA_DIR:?err}/${SERVICE_NAME:?err}/database:/var/lib/mysql"
     environment:
       MYSQL_DATABASE: "panel"
-      MYSQL_USER: "grantimatter"
+      MYSQL_USER: "pterodactyl"
+      MARIADB_DATABASE: "panel"
+      MARIADB_USER_PASSWORD: ${MYSQL_PASSWORD}
+      MARIADB_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MARIADB_USER: "pterodactyl"
       PUID: 1000
       PGID: 1000
     networks:

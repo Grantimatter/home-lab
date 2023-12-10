@@ -31,7 +31,7 @@ services:
     image: tobbez/deluge_exporter:latest
     environment:
       - DELUGE_HOST=deluge
-      - DELUGE_PORT=58846
+      - DELUGE_PORT=6881
       - DELUGE_USER=exporter
       - DELUGE_PASSWORD=${DELUGE_PASSWORD?:err}
     volumes:
