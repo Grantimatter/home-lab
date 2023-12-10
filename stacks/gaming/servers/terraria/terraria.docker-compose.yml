@@ -13,3 +13,7 @@ services:
       service: game-server
     volumes:
       - ${SERVER_DATA_DIR}/${SERVICE_NAME}:/root/.local/share/Terraria/Worlds
+
+netowrks:
+  proxy:
+    external: true
