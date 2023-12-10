@@ -9,9 +9,14 @@ services:
       - PGID=1000
     labels:
       - "traefik.enable=true"
-      - "traefik.${PROTOCOL:?err}.routers.${SERVICE_NAME:?err}.entrypoints=${SERVICE_NAME:?err}-${PROTOCOL:?err}"
-      - "traefik.${PROTOCOL:?err}.routers.${SERVICE_NAME:?err}.service=${SERVICE_NAME:?err}"
-      - "traefik.${PROTOCOL:?err}.services.${SERVICE_NAME}.loadbalancer.server.port=${LOADBALANCE_PORT:?err}"
+      - "traefik.udp.routers.${SERVICE_NAME:?err}.entrypoints=${SERVICE_NAME:?err}-udp"
+      - "traefik.udp.routers.${SERVICE_NAME:?err}.service=${SERVICE_NAME:?err}"
+      - "traefik.udp.services.${SERVICE_NAME}.loadbalancer.server.port=${LOADBALANCE_PORT:?err}"
+      - "traefik.tcp.routers.${SERVICE_NAME:?err}.entrypoints=${SERVICE_NAME:?err}-tcp"
+      - "traefik.tcp.routers.${SERVICE_NAME:?err}.service=${SERVICE_NAME:?err}"
+      - "traefik.tcp.services.${SERVICE_NAME}.loadbalancer.server.port=${LOADBALANCE_PORT:?err}"
+      - "traefik.tcp.routers.${SERVICE_NAME:?err}.rule=HostSNI(`*`)"
+      #- "traefik.${PROTOCOL:?err}.routers.${SERVICE_NAME:?err}.tls=false"
       - "traefik.docker.network=proxy"
     networks:
       - proxy

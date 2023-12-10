@@ -1,8 +1,3 @@
-#7777:7777
-#-v $HOME/terraria/world:/root/.local/share/Terraria/Worlds 
-#--name="terraria" 
-#-e WORLD_FILENAME=<.wld world_filename_here>
-# ryshe/terraria:latest
 version: "3.9"
 services:
   terraria:
@@ -16,9 +11,6 @@ services:
       - 7779:7777
     volumes:
       - ${SERVER_DATA_DIR:?err}/${SERVICE_NAME:?err}:/root/.local/share/Terraria/Worlds
-    labels:
-      - "traefik.${PROTOCOL:?err}.routers.${SERVICE_NAME:?err}.rule=HostSNI(`*`)"
-      - "traefik.${PROTOCOL:?err}.routers.${SERVICE_NAME:?err}.tls=false"
 
 networks:
   proxy:
