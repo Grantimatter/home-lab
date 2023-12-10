@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   terraria:
-    image: ryshe/terraria:latest
+    image: hexlo/terraria-server-docker:latest
     container_name: terraria
     command: -world /root/.local/share/Terraria/Worlds/Master_Celebration.wld
     extends:
@@ -9,6 +9,14 @@ services:
       service: game-server
     ports:
       - 7779:7777
+    environment:
+      - world=/root/.local/share/Terraria/Worlds/Master_Celebration.wld
+      - autocreate=2
+      - worldname="Master Celebration"
+      - difficulty=3
+      - maxplayers=8
+      - password=
+      - motd="Welcome to the Wiswell Llama Server! Playing in Master Mode on Celebration Mk10 seed!"
     volumes:
       - ${SERVER_DATA_DIR:?err}/${SERVICE_NAME:?err}:/root/.local/share/Terraria/Worlds
 
