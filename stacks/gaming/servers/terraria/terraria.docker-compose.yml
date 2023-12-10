@@ -14,6 +14,6 @@ services:
     volumes:
       - ${SERVER_DATA_DIR}/${SERVICE_NAME}:/root/.local/share/Terraria/Worlds
 
-netowrks:
+networks:
   proxy:
     external: true
