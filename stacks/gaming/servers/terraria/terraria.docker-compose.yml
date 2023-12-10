@@ -15,7 +15,7 @@ services:
     volumes:
       - ${SERVER_DATA_DIR:?err}/${SERVICE_NAME:?err}:/root/.local/share/Terraria/Worlds
     labels:
-      - "traefik.${PROTOCOL:?err}.routers.${SERVICE_NAME:?err}.rule=HostSNI(`${HOST_ADDRESS?:err}`)"
+      - "traefik.${PROTOCOL:?err}.routers.${SERVICE_NAME:?err}.rule=HostSNI(`*`)"
 
 networks:
   proxy:
