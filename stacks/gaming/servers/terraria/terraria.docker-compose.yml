@@ -12,8 +12,6 @@ services:
     extends:
       file: ../game-server.docker-compose.yml
       service: game-server
-    environment:
-      - WORLD_FILENAME=master
     volumes:
       - ${SERVER_DATA_DIR:?err}/${SERVICE_NAME:?err}:/root/.local/share/Terraria/Worlds
     labels:
