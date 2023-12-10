@@ -12,6 +12,8 @@ services:
     extends:
       file: ../game-server.docker-compose.yml
       service: game-server
+    ports:
+      - 7779:7777
     volumes:
       - ${SERVER_DATA_DIR:?err}/${SERVICE_NAME:?err}:/root/.local/share/Terraria/Worlds
     labels:
