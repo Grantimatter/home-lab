@@ -8,11 +8,17 @@ services:
   terraria:
     image: ryshe/terraria:latest
     container_name: terraria
+    command: -world /root/.local/share/Terraria/Worlds/master.wld
+      -autocreate 2
     extends:
       file: ../game-server.docker-compose.yml
       service: game-server
+    environment:
+      - WORLD_FILENAME=master
     volumes:
-      - ${SERVER_DATA_DIR}/${SERVICE_NAME}:/root/.local/share/Terraria/Worlds
+      - ${SERVER_DATA_DIR/}/${SERVICE_NAME}:/root/.local/share/Terraria/Worlds
+    labels:
+      - "traefik.${PROTOCOL:?err}.routers.${SERVICE_NAME:?err}.rule=HostSNI(`${HOST_ADDRESS?:err}`)"
 
 networks:
   proxy:
