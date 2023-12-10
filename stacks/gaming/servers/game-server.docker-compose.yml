@@ -16,7 +16,7 @@ services:
       - "traefik.tcp.routers.${SERVICE_NAME:?err}.service=${SERVICE_NAME:?err}"
       - "traefik.tcp.services.${SERVICE_NAME}.loadbalancer.server.port=${LOADBALANCE_PORT:?err}"
       - "traefik.tcp.routers.${SERVICE_NAME:?err}.rule=HostSNI(`*`)"
-      #- "traefik.${PROTOCOL:?err}.routers.${SERVICE_NAME:?err}.tls=false"
+      - "traefik.tcp.routers.${SERVICE_NAME:?err}.tls=false"
       - "traefik.docker.network=proxy"
     networks:
       - proxy

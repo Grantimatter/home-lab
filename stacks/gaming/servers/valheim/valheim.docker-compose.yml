@@ -25,3 +25,7 @@ services:
       - ${SERVER_DATA_DIR:?err}/${SERVICE_NAME:?err}:/opt/valheim
     networks:
       - proxy
+
+networks:
+  proxy:
+    external: true
