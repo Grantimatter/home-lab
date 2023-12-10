@@ -16,7 +16,7 @@ services:
     environment:
       - WORLD_FILENAME=master
     volumes:
-      - ${SERVER_DATA_DIR/}/${SERVICE_NAME}:/root/.local/share/Terraria/Worlds
+      - ${SERVER_DATA_DIR:?err}/${SERVICE_NAME:?err}:/root/.local/share/Terraria/Worlds
     labels:
       - "traefik.${PROTOCOL:?err}.routers.${SERVICE_NAME:?err}.rule=HostSNI(`${HOST_ADDRESS?:err}`)"
 
