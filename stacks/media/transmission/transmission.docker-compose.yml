@@ -3,7 +3,7 @@ name: ${SERVICE_NAME:?err}
 services:
   transmission-openvpn:
     extends:
-      file: ${SERVER_DIR}/home-lab/stacks/media/proxied-media-service.yml
+      file: ../proxied-media-service.docker-compose.yml
       service: proxied-media
     image: haugene/transmission-openvpn
     cap_add:
