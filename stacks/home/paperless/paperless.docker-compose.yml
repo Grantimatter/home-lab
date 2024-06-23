@@ -10,6 +10,7 @@ services:
       - redis
     environment:
       PAPERLESS_REDIS: redis://redis:6379
+      PAPERLESS_URL: paperless.lab.wiswellgrant.com
     networks:
       - database
     volumes:
