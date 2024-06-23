@@ -10,6 +10,8 @@ services:
       - redis
     environment:
       PAPERLESS_REDIS: redis://redis:6379
+    networks:
+      - database
     volumes:
       - ${SERVER_DATA_DIR?:err}/${SERVICE_NAME}:/usr/src/paperless/data
       - ${SERVER_DATA_DIR?:err}/${SERVICE_NAME}/media:/usr/src/paperless/media
