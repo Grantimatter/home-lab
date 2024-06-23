@@ -18,9 +18,7 @@ services:
       - LOCAL_NETWORK=${LOCAL_NETWORK?:err}
     volumes:
       - ${SERVER_CONFIG_DIR?:err}/${SERVICE_NAME?:err}:/config
-      - ${SERVER_DATA_DIR?:err}/${SERVICE_NAME?:err}:/data
-      - nas-share-movies:/data/movies:rw
-      - nas-share-shows:/data/shows:rw
+      - nas-share:/data
     logging:
       driver: json-file
       options:
