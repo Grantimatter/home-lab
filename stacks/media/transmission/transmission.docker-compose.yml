@@ -1,15 +1,27 @@
 version: "3.9"
 name: ${SERVICE_NAME:?err}
 services:
-  transmission:
+  transmission-openvpn:
     extends:
       file: ${SERVER_DIR}/home-lab/stacks/media/proxied-media-service.yml
       service: proxied-media
-    image: lscr.io/linuxserver/transmission:latest
+    image: haugene/transmission-openvpn
+    cap_add:
+      - NET_ADMIN
     environment:
-      - USER=${TRANSMISSION_USER}
-      - PASS=${TRANSMISSION_PASS}
+      - USER=${TRANSMISSION_USER?:err}
+      - PASS=${TRANSMISSION_PASS?:err}
+      - OPENVPN_PROVIDER=${OPENVPN_PROVIDER?:err}
+      - OPENVPN_CONFIG=${OPENVPN_CONFIG?:err}
+      - OPENVPN_USERNAME=${OPENVPN_USER?:err}
+      - OPENVPN_PASSWORD=${OPENVPN_PASS?:err}
+      - LOCAL_NETWORK=${LOCAL_NETWORK?:err}
     volumes:
+      - ${SERVER_CONFIG_DIR?:err}/${SERVICE_NAME?:err}:/config
+      - ${SERVER_DATA_DIR?:err}/${SERVICE_NAME?:err}:/data
       - nas-share-movies:/data/movies:rw
       - nas-share-shows:/data/shows:rw
-      - nas-share-sites:/data/sites:rw
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m

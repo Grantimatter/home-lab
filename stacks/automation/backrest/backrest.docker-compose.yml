@@ -1,0 +1,18 @@
+version: "3.9"
+name: ${SERVICE_NAME:?err}
+services:
+  backrest:
+    extends:
+      file: ${SERVER_DIR}/proxied-service.docker-compose.yml
+      service: proxied
+    image: garethgeorge/backrest
+    environment:
+      - BACKREST_CONFIG="/config/config.json"
+      - BACKREST_DATA="/data"
+      - XDG_CACHE_HOME="/cache"
+    volumes:
+      - ${SERVER_DATA_DIR?:err}/${SERVICE_NAME}:/data
+      - ${SERVER_CONFIG_DIR?:err}/${SERVICE_NAME}:/config
+      - ${SERVER_DATA_DIR?:err}/cache/${SERVICE_NAME}:/cache
+      - ${SERVER_DATA_DIR?:err}:/serverdata
+      - ${SERVER_CONFIG_DIR?:err}:/serverconfig
