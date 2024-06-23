@@ -5,7 +5,7 @@ services:
     extends:
       file: ${SERVER_DIR}/proxied-service.docker-compose.yml
       service: proxied
-    image: ghcr.io/paperless-ngx/paplerr-ngx:latest
+    image: ghcr.io/paperless-ngx/paperless-ngx:latest
     depends_on:
       - redis
     environment:
