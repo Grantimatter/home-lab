@@ -8,7 +8,7 @@ services:
     image: ghcr.io/paperless-ngx/paplerr-ngx:latest
     depends_on:
       - redis
-    envrionment:
+    environment:
       PAPERLESS_REDIS: redis://broker:6379
     volumes:
       - ${SERVER_DATA_DIR?:err}/${SERVICE_NAME}:/usr/src/paperless/data
