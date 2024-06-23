@@ -7,6 +7,7 @@ include:
   - prowlarr/prowlarr.docker-compose.yml
   - overseerr/overseerr.docker-compose.yml
   - deluge/deluge.docker-compose.yml
+  - transmission/transmission.docker-compose.yml
   - plex/plex.docker-compose.yml
 
 volumes:
