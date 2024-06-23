@@ -2,4 +2,5 @@ version: "3.9"
 name: media-stack
 include:
   - mealie/mealie.docker-compose.yml
+  - actualbudget/actual.docker-compose.yml
   #- fireflyiii/fireflyiii.docker-compose.yml

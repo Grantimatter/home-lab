@@ -1,0 +1,10 @@
+version: "3.9"
+name: ${SERVICE_NAME:?err}
+services:
+  actual:
+    extends:
+      file: ${SERVER_DIR}/proxied-service.docker-compose.yml
+      service: proxied
+    image: actualbudget/actual-server:latest-alpine
+    volumes:
+      - ${SERVER_DATA_DIR?:err}/${SERVICE_NAME}:/data
