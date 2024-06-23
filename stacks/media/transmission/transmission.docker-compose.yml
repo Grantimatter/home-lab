@@ -9,12 +9,11 @@ services:
     cap_add:
       - NET_ADMIN
     environment:
-      - USER=${TRANSMISSION_USER?:err}
-      - PASS=${TRANSMISSION_PASS?:err}
       - OPENVPN_PROVIDER=${OPENVPN_PROVIDER?:err}
       - OPENVPN_CONFIG=${OPENVPN_CONFIG?:err}
       - OPENVPN_USERNAME=${OPENVPN_USER?:err}
       - OPENVPN_PASSWORD=${OPENVPN_PASS?:err}
+      - DISABLE_PORT_UPDATER=true
       - LOCAL_NETWORK=${LOCAL_NETWORK?:err}
     volumes:
       - ${SERVER_CONFIG_DIR?:err}/${SERVICE_NAME?:err}:/config
