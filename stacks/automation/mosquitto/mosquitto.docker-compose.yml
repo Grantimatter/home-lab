@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  mosqutto:
+    extends:
+      file: ${SERVER_DIR}/proxied-host-service.docker-compose.yml
+      service: proxied-host
+    image: eclipse-mosquitto
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=US/Central
+    volumes:
+      - ${SERVER_CONFIG_DIR:?err}/${SERVICE_NAME}:/mosquitto
+      - ${SERVER_DATA_DIR:?err}/${SERVICE_NAME}/data:/mosquitto/data
+      - ${SERVER_DATA_DIR:?err}/${SERVICE_NAME}/log:/mosquitto/log
+    ports:
+      - 1883:1883
+    networks:
+      - automation

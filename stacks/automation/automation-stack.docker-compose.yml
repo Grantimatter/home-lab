@@ -4,3 +4,8 @@ include:
   - duplicati/duplicati.docker-compose.yml
   - homeassisstant/homeassisstant.docker-compose.yml
   - backrest/backrest.docker-compose.yml
+  - mosquitto/mosquitto.docker-compose.yml
+
+networks:
+  automation:
+    name: automation
